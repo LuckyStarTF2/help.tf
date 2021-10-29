@@ -14,6 +14,6 @@ lm = LoginManager(helptf)
 lm.init_app(helptf)
 oid = OpenID(helptf, os.path.join(basedir, 'tmp'))
 db = SQLAlchemy(helptf)
-migrate =Migrate(helptf, db)
+migrate = Migrate(helptf, db)
 
 from app import routes

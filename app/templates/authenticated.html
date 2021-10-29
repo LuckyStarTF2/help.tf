@@ -26,4 +26,6 @@ current_user.last_seen = {{ current_user.last_seen }}
 current_user.steam_account_created_date = {{ current_user.steam_account_created_date }}
 <br>
 current_user.steam_real_name = {{ current_user.steam_real_name }}
+<br>
+<a href=" {{ url_for('update_profile') }}">update profile</a>
 {% endblock %}

@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from flask import render_template, flash, redirect, session, url_for, request, g
 from app.forms import LoginForm
 from app.models import User
-import json
+from datetime import datetime
 
 
 @lm.user_loader
@@ -65,3 +65,20 @@ def auth():
                            form=form,
                            providers={'name': 'Steam', 'url': 'https://steamcommunity.com/openid'},
                            next=url_for('index'))
+
+
+@helptf.route('/update_profile')
+@login_required
+def update_profile():
+    u = current_user.update_profile()
+    current_user.nickname = u['nickname']
+    current_user.avatar32 = u['avatar32']
+    current_user.avatar64 = u['avatar64']
+    current_user.avatar184 = u['avatar184']
+    current_user.profile_url = u['profile_url']
+    current_user.last_seen = datetime.fromtimestamp(u['last_seen'])
+    current_user.steam_account_created_date = datetime.fromtimestamp(u['steam_account_created_date'])
+    current_user.steam_real_name = u['steam_real_name']
+    db.session.commit()
+    return redirect(url_for('index'))
+
