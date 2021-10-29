@@ -1,0 +1,29 @@
+{% block content %}
+    authenticated
+    <br>
+    welcome
+<br>
+current_user.id = {{ current_user.id }}
+<br>
+current_user.steamid = {{ current_user.steamid }}
+<br>
+current_user.created_ts = {{ current_user.created_ts }}
+<br>
+current_user.is_coach = {{ current_user.is_coach }}
+<br>
+current_user.nickname = {{ current_user.nickname }}
+<br>
+current_user.avatar32 = {{ current_user.avatar32 }}
+<br>
+current_user.avatar64 = {{ current_user.avatar64 }}
+<br>
+current_user.avatar184 = {{ current_user.avatar184 }}
+<br>
+current_user.profile_url = {{ current_user.profile_url }}
+<br>
+current_user.last_seen = {{ current_user.last_seen }}
+<br>
+current_user.steam_account_created_date = {{ current_user.steam_account_created_date }}
+<br>
+current_user.steam_real_name = {{ current_user.steam_real_name }}
+{% endblock %}

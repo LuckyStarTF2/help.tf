@@ -1,0 +1,7 @@
+{% block content %}
+    <form action="" method="post" name="login">
+        {{ form.hidden_tag() }}
+        <input type=hidden name=next value="{{ next }}">
+        <p><input type="submit" value="Sign In"></p>
+    </form>
+{% endblock %}
