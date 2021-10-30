@@ -5,11 +5,18 @@ from flask_openid import OpenID
 from config import basedir
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config import Config
+from config import Config, DevConfig
 
 
 helptf = Flask(__name__)
-helptf.config.from_object(Config)
+
+#  dev database switch
+dev_mode = True
+if dev_mode:
+    helptf.config.from_object(DevConfig)
+else:
+    helptf.config.from_object(Config)
+
 lm = LoginManager(helptf)
 lm.init_app(helptf)
 oid = OpenID(helptf, os.path.join(basedir, 'tmp'))

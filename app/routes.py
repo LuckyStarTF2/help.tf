@@ -4,6 +4,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from app.forms import LoginForm
 from app.models import User
 from datetime import datetime
+import requests
 
 
 @lm.user_loader
@@ -82,3 +83,39 @@ def update_profile():
     db.session.commit()
     return redirect(url_for('index'))
 
+
+@helptf.route('/update_all_profiles')
+@login_required
+def update_all_profiles():
+    items_per_page = 2  # steam id check limit
+    if current_user.steamid != 76561198126840092:  # me
+        return redirect(url_for('index'))
+    if 'STEAM_API_KEY' not in helptf.config or \
+            not helptf.config['STEAM_API_KEY']:
+        return 'Error: steam api key is not defined'
+    users_list = User.query.all()
+    times_to_repeat = divmod(len(users_list), items_per_page)[0]
+    for i in range(times_to_repeat + 1):
+        list_tmp = []
+        for j in range(items_per_page):
+            if j + (i*items_per_page) < len(users_list):
+                list_tmp.append(users_list[j + (i*items_per_page)].steamid)
+        r = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}'.format(helptf.config['STEAM_API_KEY'], ','.join(str(steamid) for steamid in list_tmp)))
+        if r.status_code != 200:
+            return 'Retrieving user data has failed (' + \
+                r.status_code + ')'
+        print(','.join(str(steamid) for steamid in list_tmp) + ": " + str(r.status_code))
+        response_users = r.json()['response']['players']
+        for ru in response_users:
+            User.query.filter_by(steamid=ru['steamid']).\
+                update({'nickname': ru['personaname'],
+                        'avatar32': ru['avatar'],
+                        'avatar64': ru['avatarmedium'],
+                        'avatar184': ru['avatarfull'],
+                        'profile_url': ru['profileurl'],
+                        'last_seen': datetime.fromtimestamp(ru['lastlogoff']),
+                        'steam_account_created_date': datetime.fromtimestamp(ru['timecreated']),
+                        'steam_real_name': ru['realname']})
+        db.session.commit()
+    return str(len(users_list)) + ' users were updated successfully with ' + \
+           str(times_to_repeat + 1) + ' requests'
