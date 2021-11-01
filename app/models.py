@@ -66,5 +66,22 @@ class User(db.Model):
             u['steam_status'] = r.json()['response']['players'][0]['personastate']
         return u
 
+    def serialize(self):
+        return {
+            # 'id': self.id,
+            'steamid': self.steamid,
+            # 'created_ts': self.created_ts,
+            # 'is_coach': self.is_coach,
+            'nickname': self.nickname,
+            'avatar32': self.avatar32,
+            'avatar64': self.avatar64,
+            'avatar184': self.avatar184,
+            'profile_url': self.profile_url,
+            'last_seen': self.last_seen,
+            'steam_account_created_date': self.steam_account_created_date,
+            'steam_real_name': self.steam_real_name,
+            'steam_status': self.steam_status,
+        }
+
     def __repr__(self):
         return '<User %r>' % self.nickname

@@ -1,6 +1,6 @@
 from app import helptf, db, lm, oid
 from flask_login import login_user, logout_user, current_user, login_required
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, redirect, session, url_for, request, g, jsonify
 from app.forms import LoginForm
 from app.models import User
 from datetime import datetime
@@ -130,5 +130,8 @@ def u(steamid):
 
 
 @helptf.route('/getallmentors')
-def getallmentors():
-    pass
+def get_all_mentors():
+    page = request.args.get('page', 1, type=int)
+    mentors = User.query.filter_by(is_coach=1).order_by(User.is_coach)\
+        .paginate(page, helptf.config['JSON_MENTORS_PER_REQUEST'], False)
+    return jsonify(mentors=[e.serialize() for e in mentors.items])
