@@ -115,7 +115,20 @@ def update_all_profiles():
                         'profile_url': ru['profileurl'],
                         'last_seen': datetime.fromtimestamp(ru['lastlogoff']),
                         'steam_account_created_date': datetime.fromtimestamp(ru['timecreated']),
-                        'steam_real_name': ru['realname']})
+                        'steam_real_name': ru['realname'],
+                        'steam_status': ru['personastate']})
         db.session.commit()
     return str(len(users_list)) + ' users were updated successfully with ' + \
            str(times_to_repeat + 1) + ' requests'
+
+
+@helptf.route('/u/<steamid>')
+@helptf.route('/id/<steamid>')
+def u(steamid):
+    user = User.query.filter_by(steamid=steamid).first_or_404()
+    return render_template('u.html', user=user)
+
+
+@helptf.route('/getallmentors')
+def getallmentors():
+    pass

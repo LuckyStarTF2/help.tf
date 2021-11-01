@@ -19,6 +19,7 @@ class User(db.Model):
     last_seen = db.Column(db.DateTime)  # lastlogoff
     steam_account_created_date = db.Column(db.DateTime)  # timecreated
     steam_real_name = db.Column(db.String(128))  # realname
+    steam_status = db.Column(db.Integer)  # personastate
 
     @property
     def is_authenticated(self):
@@ -39,7 +40,8 @@ class User(db.Model):
         if 'STEAM_API_KEY' not in helptf.config or \
                 not helptf.config['STEAM_API_KEY']:
             return 'Error: steam api key is not defined'
-        r = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}'.format(helptf.config['STEAM_API_KEY'], self.steamid))
+        r = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}'.\
+                         format(helptf.config['STEAM_API_KEY'], self.steamid))
         if r.status_code != 200:
             return 'Retrieving user data has failed (' + \
                 r.status_code + ')'
@@ -60,6 +62,8 @@ class User(db.Model):
             u['steam_account_created_date'] = r.json()['response']['players'][0]['timecreated']
         if r.json()['response']['players'][0].get('realname'):
             u['steam_real_name'] = r.json()['response']['players'][0]['realname']
+        if r.json()['response']['players'][0].get('personastate'):
+            u['steam_status'] = r.json()['response']['players'][0]['personastate']
         return u
 
     def __repr__(self):

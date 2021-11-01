@@ -1,0 +1,9 @@
+{% block content %}
+    
+    <img src="{{ user.avatar184 }}">
+    <p>user.nickname: {{ user.nickname }} </p>
+    <p><a href="{{ user.profile_url }}">Steam</a> (<a href="steam://friends/add/{{ user.steamid }}">Add friend</a>) </p>
+    <p>Steam last online: {{ user.last_seen }} </p>
+    <p>On help.tf since: {{ user.created_ts }} </p>
+    <p>Steam status: {{ user.steam_status }} </p>
+{% endblock %}
