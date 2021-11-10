@@ -1,0 +1,37 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+    <section class="container visible-borders d-flex align-items-center position-relative bg-size-cover bg-position-center min-vh-100 overflow-hidden pt-6 pb-lg-5" id="main-container" style="background-image: url({{ url_for('static', filename='img/bg.jpg') }});">
+      <div class="row align-items-center py-3">
+        <div class="col-xl-6 col-lg-5 d-flex justify-content-start">
+          <div>
+          <h1 class="display-4 text-light pb-2">New to <strong>TF2?</strong></h1>
+          <p class="h4 fw-light text-light opacity-70 line-height-base ps-1">Have more questions than answers? The friendly community of experienced players is here to help!</p>
+          <p class="h4 fw-light text-light opacity-70 line-height-base ps-1 py-3">Not totally new, but want to improve in some areas? No problem!</p>
+          <hr class="hr-light mt-5 mb-5">
+          <div class="row">
+                  <div class="col-sm-4 mb-4 mb-sm-0">
+                    <!-- Number of mentors -->
+                    <div class="h1 text-light mb-1">14</div>
+                    <div class="h5 text-light fw-normal opacity-70 mb-2">Active mentors</div>
+                  </div>
+                  <div class="col-sm-4 mb-4 mb-sm-0">
+                    <!-- number of students -->
+                    <div class="h1 text-light mb-1">130</div>
+                    <div class="h5 text-light fw-normal opacity-70 mb-1">Happy new gamers</div>
+                  </div>
+                  <div class="col-sm-4">
+                    <!-- I dunno. Suggest something if you're reading this -->
+                    <div class="h1 text-light mb-1">42</div>
+                    <div class="h5 text-light fw-normal opacity-70 mb-1">The Answer</div>
+                  </div>
+                </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-7 main-page-pic" style="height: 500px; background-image: url({{ url_for('static', filename='img/scoot.png') }});"></div>
+      </div>
+      <div class="">
+        
+      </div>
+    </section>
+{% endblock %}

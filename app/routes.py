@@ -45,7 +45,6 @@ def after_login(resp):
 
 
 @helptf.route('/')
-@helptf.route('/index')
 def index():
     if g.user.is_authenticated:
         return render_template('authenticated.html')
@@ -135,3 +134,8 @@ def get_all_mentors():
     mentors = User.query.filter_by(is_coach=1).order_by(User.is_coach)\
         .paginate(page, helptf.config['JSON_MENTORS_PER_REQUEST'], False)
     return jsonify(mentors=[e.serialize() for e in mentors.items])
+
+
+@helptf.route('/bootstrap')
+def bootstrap():
+    return render_template('bootstrap2.html')
