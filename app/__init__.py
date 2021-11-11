@@ -11,7 +11,7 @@ from config import Config, DevConfig
 helptf = Flask(__name__)
 
 #  dev database switch
-dev_mode = True
+dev_mode = False
 if dev_mode:
     helptf.config.from_object(DevConfig)
 else:
