@@ -46,10 +46,11 @@ def after_login(resp):
 
 @helptf.route('/')
 def index():
-    if g.user.is_authenticated:
-        return render_template('authenticated.html')
-    else:
-        return render_template('notauthenticated.html')
+    # if g.user.is_authenticated:
+    #     return render_template('authenticated.html')
+    # else:
+    #     return render_template('notauthenticated.html')
+    return render_template('main_page.html', user=g.user)
 
 
 @helptf.route('/auth', methods=['GET', 'POST'])
@@ -138,4 +139,4 @@ def get_all_mentors():
 
 @helptf.route('/bootstrap')
 def bootstrap():
-    return render_template('bootstrap2.html')
+    return render_template('main_page.html')

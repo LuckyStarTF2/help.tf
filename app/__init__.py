@@ -2,10 +2,10 @@ from flask import Flask
 import os
 from flask_login import LoginManager
 from flask_openid import OpenID
-from config import basedir
+from config_heroku import basedir
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config import Config, DevConfig
+from config_heroku import Config
 
 
 helptf = Flask(__name__)
