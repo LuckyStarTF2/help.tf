@@ -5,7 +5,7 @@ from flask_openid import OpenID
 from config_heroku import basedir
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config_heroku import Config
+from config_heroku import Config, DevConfig
 
 
 helptf = Flask(__name__)

@@ -87,7 +87,7 @@ def update_profile():
 @helptf.route('/update_all_profiles')
 @login_required
 def update_all_profiles():
-    items_per_page = 2  # steam id check limit
+    items_per_page = 100  # steam id check limit
     if current_user.steamid != 76561198126840092:  # me
         return redirect(url_for('index'))
     if 'STEAM_API_KEY' not in helptf.config or \
