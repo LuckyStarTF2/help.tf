@@ -144,6 +144,5 @@ def bootstrap():
 
 @helptf.route('/debug')
 def debug():
-    response = "DATABASE_URL = " + helptf.config['DATABASE_URL'] + "<br>" + \
-        "SQLALCHEMY_MIGRATE_REPO = " + helptf.config['SQLALCHEMY_MIGRATE_REPO'] + "<br>"
+    response = "<br>"
     return response

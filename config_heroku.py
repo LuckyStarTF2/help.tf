@@ -8,7 +8,7 @@ class Config(object):
     OPENID_PROVIDERS = [{'name': 'Steam', 'url': 'https://steamcommunity.com/openid'}]
     DATABASE_URL = os.environ.get('JAWSDB_URL')
     SQLALCHEMY_DATABASE_URI = os.environ.get('JAWSDB_URL')
-    SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+    # SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JSON_MENTORS_PER_REQUEST = 50
 
@@ -19,6 +19,6 @@ class DevConfig(object):
     OPENID_PROVIDERS = [
         {'name': 'Steam', 'url': 'https://steamcommunity.com/openid'}]
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/helptf'
-    SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+    # SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JSON_MENTORS_PER_REQUEST = 50
