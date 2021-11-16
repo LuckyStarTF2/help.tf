@@ -12,9 +12,9 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-@helptf.before_request
-def before_request():
-    g.user = current_user
+# @helptf.before_request
+# def before_request():
+#     g.user = current_user
 
 
 @oid.after_login
@@ -140,3 +140,10 @@ def get_all_mentors():
 @helptf.route('/bootstrap')
 def bootstrap():
     return render_template('main_page.html')
+
+
+@helptf.route('/debug')
+def debug():
+    response = "DATABASE_URL = " + helptf.config['DATABASE_URL'] + "<br>" + \
+        "SQLALCHEMY_MIGRATE_REPO = " + helptf.config['SQLALCHEMY_MIGRATE_REPO'] + "<br>"
+    return response
