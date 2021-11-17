@@ -29,4 +29,5 @@ zipp==3.6.0
 psycopg2-binary
 gunicorn
 pymysql
+cryptography
 mysqlclient

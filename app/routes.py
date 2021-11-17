@@ -12,9 +12,9 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-# @helptf.before_request
-# def before_request():
-#     g.user = current_user
+@helptf.before_request
+def before_request():
+    g.user = current_user
 
 
 @oid.after_login
@@ -50,7 +50,8 @@ def index():
     #     return render_template('authenticated.html')
     # else:
     #     return render_template('notauthenticated.html')
-    return render_template('main_page.html', user=g.user)
+    # return render_template('main_page.html', user=g.user)
+    return render_template('main_page.html')
 
 
 @helptf.route('/auth', methods=['GET', 'POST'])
@@ -66,6 +67,12 @@ def auth():
                            form=form,
                            providers={'name': 'Steam', 'url': 'https://steamcommunity.com/openid'},
                            next=url_for('index'))
+
+
+@helptf.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @helptf.route('/update_profile')
@@ -144,5 +151,5 @@ def bootstrap():
 
 @helptf.route('/debug')
 def debug():
-    response = "<br>"
+    response = str(dir(g.user))
     return response
