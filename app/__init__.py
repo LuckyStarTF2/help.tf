@@ -5,17 +5,12 @@ from flask_openid import OpenID
 from config_heroku import basedir
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config_heroku import Config, DevConfig
+from config_heroku import Config
 
 
 helptf = Flask(__name__)
 
-#  dev database switch
-dev_mode = False
-if dev_mode:
-    helptf.config.from_object(DevConfig)
-else:
-    helptf.config.from_object(Config)
+helptf.config.from_object(Config)
 
 lm = LoginManager(helptf)
 lm.init_app(helptf)
