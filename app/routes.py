@@ -144,9 +144,14 @@ def get_all_mentors():
     return jsonify(mentors=[e.serialize() for e in mentors.items])
 
 
-@helptf.route('/bootstrap')
-def bootstrap():
-    return render_template('main_page.html')
+@helptf.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+@helptf.route('/mentors')
+def mentors():
+    return render_template('mentors.html')
 
 
 @helptf.route('/debug')

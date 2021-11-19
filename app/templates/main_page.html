@@ -2,10 +2,6 @@
 <html lang="en">
   <head>
     <style type="text/css">
-      .visible-borders, .visible-borders [class^="col"] {
-        background-color: rgba(39,41,43,0.03);
-        border: 1px solid rgba(39,41,43,0.1);
-      }
       #main-top {
         color: #fff !important;
       }
@@ -15,7 +11,7 @@
       }
       nav.navbar-floating {
         position: absolute;
-        top: 0;
+        top: 0px;
         left: 0;
         width: 100%;
         z-index: 10;
@@ -27,6 +23,70 @@
         display: block;
         margin-top: 0;
       }
+      .card {
+        border-width: 0 !important;
+        background-size: cover;
+        background-image: url({{ url_for('static', filename='img/bananabay.jpg') }});
+        background-position: center;
+        border-radius: 0.75rem !important;
+        cursor: pointer;
+        transition: transform 0.4s cubic-bezier(0, 0, 0, 1.01);
+        overflow: hidden;
+      }
+      .card::before { 
+        content:"";
+        position:absolute; top:0;right:0;bottom:0;left:0;
+        background:inherit;
+        transition:inherit;
+      }
+      .card:hover::before { 
+        transform: scale(1.1);
+      }
+      .card-b {
+        height: 25rem;
+      }
+      .card-m {
+        height: 11.75rem;
+      }
+      .card-img-overlay {
+        background-image: linear-gradient(180deg, transparent, #030303);
+        border-radius: 0.75rem !important;
+      }
+      .w-100.mt-auto {
+        color:  #fff;
+      }
+      .under-development-alert {
+        width: 100%;
+        height: 50px;
+      }
+      .alert-development {
+        color: #fff !important;
+        background-color: #dc3545 !important;
+        position: absolute !important;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        max-width: 90% !important;
+        top: 100px;
+      }
+      .alert-development a {
+        color: #fff !important;
+      }
+      svg.me-2 {
+        margin-right: 1rem !important;
+      }
+      .card a {
+        transition: all 0.3s ease-in-out;
+        color: #fff !important;
+        text-decoration: none;
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+      .card:hover h3 {
+        text-decoration: underline !important;
+      }
     </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -37,13 +97,14 @@
     {% if title %}
       <title>{{ title }}</title>
       {% else %}
-      <title>help.tf - title!</title>
+      <title>help.tf - the best place to get help with TF2!</title>
     {% endif %}
   </head>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    
     <main class="page-wrapper">
-      
       <nav class="header navbar navbar-expand-lg navbar-floating navbar-sticky navbar-dark fs-5" aria-label="navbar">
         <div class="container px-5" style="max-width: none;">
           <a class="navbar-brand fs-4 ps-1" href="{{ url_for('index') }}">help.tf</a>
@@ -76,6 +137,27 @@
 
 
       <section id="main-top" class="d-flex align-items-center position-relative bg-dark bg-size-cover bg-position-center min-vh-100 overflow-hidden pt-6 pb-lg-5" style="background-image: url({{ url_for('static', filename='img/bg.jpg') }});">
+        <div class="row">
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </symbol>
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </symbol>
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+          </svg>
+
+          <div class="alert alert-danger d-flex align-items-center alert-development" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+              Alert! This project is under development now and wasn't released yet. Many sufficient parts are missing! <a href="{{ url_for('contact') }}">Message</a> me if you want to help.
+            </div>
+          </div>
+        </div>
+          
         <div class="container-fluid pt-4 pb-5 py-lg-5 px-3">
           <div class="row align-items-center py-3">
             <div class="col-xl-6 col-lg-5 d-flex justify-content-end ps-5">
@@ -114,7 +196,89 @@
       </section>
 
       <section style="background-color: #f7f7fc; height: 800px;" id="more">
-        <p>buttons to choose in which area you want to improve</p>
+        <div class="container card-grid py-5">
+          <h1 class="mb-5">What do you want to learn?</h1>
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <div class="card card-overlay-bottom card-grid-lg card-bg-scale card-b">
+                <a href="{{ url_for('mentors') }}">
+                  <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                    <div class="w-100 mt-auto">
+                      <h3>Learning basics</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row g-4">
+                <div class="col-12">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m"><a href="{{ url_for('mentors') }}">
+                    <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                      <div class="w-100 mt-auto"><h3>Rocket or sticky jumping</h3></div>
+                    </div></a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                    <a href="{{ url_for('mentors') }}">
+                      <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                        <div class="w-100 mt-auto"><h3>Engineering</h3></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                    <a href="{{ url_for('mentors') }}">
+                      <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                        <div class="w-100 mt-auto"><h3>Airblasting</h3></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                    <a href="{{ url_for('mentors') }}">
+                      <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                        <div class="w-100 mt-auto"><h3>Trickstabbing</h3></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                    <a href="{{ url_for('mentors') }}">
+                      <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                        <div class="w-100 mt-auto"><h3>Competitive</h3></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row g-4">
+                <div class="col-12">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                    <a href="{{ url_for('mentors') }}">
+                      <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                        <div class="w-100 mt-auto"><h3>Trading</h3></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
     </main>
