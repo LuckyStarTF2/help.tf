@@ -93,6 +93,9 @@
       #faq > .row {
         margin: auto;
       }
+      #footer {
+
+      }
     </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -210,7 +213,7 @@
                 <a href="{{ url_for('mentors') }}">
                   <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                     <div class="w-100 mt-auto">
-                      <h3>Learning basics</h3>
+                      <h3>Basics</h3>
                     </div>
                   </div>
                 </a>
@@ -219,7 +222,7 @@
             <div class="col-lg-6 mb-4">
               <div class="row g-4">
                 <div class="col-12">
-                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m"><a href="{{ url_for('mentors') }}">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m"><a href="{{ url_for('mentors', area='jumping') }}">
                     <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                       <div class="w-100 mt-auto"><h3>Rocket or sticky jumping</h3></div>
                     </div></a>
@@ -346,6 +349,16 @@
             </div>
           </div>
         </div>
+      </section>
+      <section id="footer" class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center text-muted">Copyright: LOLOLOL</p>
       </section>
     </main>
   </body>
