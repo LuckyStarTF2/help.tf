@@ -154,6 +154,16 @@ def mentors():
     return render_template('mentors.html')
 
 
+@helptf.route('/become-a-mentor')
+def become_a_mentor():
+    return render_template('become-a-mentor.html')
+
+
+@helptf.route('/mentor-short-guide')
+def mentor_short_guide():
+    return render_template('mentor-short-guide.html')
+
+
 @helptf.route('/debug')
 def debug():
     response = str(dir(g.user))
