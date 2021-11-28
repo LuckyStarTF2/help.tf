@@ -1,7 +1,7 @@
 from app import helptf, db, lm, oid
 from flask_login import login_user, logout_user, current_user, login_required
 from flask import render_template, redirect, session, url_for, request, g, jsonify
-from app.forms import LoginForm
+from app.forms import LoginForm, CSRFForm
 from app.models import User
 from datetime import datetime
 import requests
@@ -156,12 +156,17 @@ def mentors():
 
 @helptf.route('/become-a-mentor')
 def become_a_mentor():
-    return render_template('become-a-mentor.html')
+    return render_template('mentor-short-guide.html')
 
 
 @helptf.route('/mentor-short-guide')
 def mentor_short_guide():
     return render_template('mentor-short-guide.html')
+
+
+@helptf.route('/fill-profile')
+def fill_the_profile():
+    return render_template('fill-the-profile.html', form=CSRFForm())
 
 
 @helptf.route('/debug')

@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+		<style type="text/css">
+			.page-wrapper {
+				background: linear-gradient(90deg,#bfa6ec,#65b2e2,#2addd8);
+			}
+		</style>
+
+      <section class="align-items-center min-vh-100 d-flex main-container">
+        <div class="row w-100 mx-auto">
+          <div class="col-1 spacer"></div>
+          <div class="col-md-8 col-10 my-5 pt-5">
+            <form>
+              {{ form.csrf_token }}
+              
+              <div class="mb-3">
+                <h3>1. World Part</h3>
+                <label for="world-part" class="form-label">This is used to prioritize mentors by their location - lower ping and closer timezone make things easier.</label>
+                <select class="form-select" aria-label="World Part" id="world-part">
+                  <option selected value="NA">North America</option>
+                  <option value="EU">Europe</option>
+                  <option value="ASIA">Asia</option>
+                  <option value="SA">South America</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <h3>2. Preferrable age</h3>
+                <label class="mb-2">Which age is comfortable for you to communicate with?</label>
+                <div class="form-check mb-2 check-all">
+                  <input class="form-check-input check-all" type="checkbox" value="" id="flexCheckDefault" checked>
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Any
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="13-15" id="13-15" checked>
+                  <label class="form-check-label" for="13-15">
+                    13-15 years
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="15-18" id="15-18" checked>
+                  <label class="form-check-label" for="15-18">
+                    15-18 years
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="18+" id="18+" checked>
+                  <label class="form-check-label" for="18+">
+                    18+
+                  </label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <h3>3. Your year of birth</h1>
+                  <label for="birth-year" class="mb-2">Students may also have age preferences.</label>
+                  <input type="number" name="birth-year" class="form-control" value="2000" id="birth-year" style="width: 6rem;">
+              </div>
+              
+              <div class="mb-3">
+                <h3>4. Are you available for voice chat?</h3>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="voiceChatAvailable" checked>
+                  <label class="form-check-label" for="voiceChatAvailable">I'm ready for calls</label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <h3>5. Languages</h3>
+                <label class="form-label" for="languages-speaking">Which languages can you <strong>speak</strong>? Please specify comma-separated:</label>
+                <input class="form-control" type="text" name="languages-speaking" id="languages-speaking">
+                <label class="form-label mt-3" for="languages-typing">Which languages can you <strong>type</strong>? Please specify comma-separated:</label>
+                <input class="form-control" type="text" name="languages-typing">
+              </div>
+              
+              <div class="mb-3">
+                <h3>6. Classes you are good at</h3>
+                <label class="mb-2">Or, at least, better than average.</label>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="scout" id="scout" checked>
+                  <label class="form-check-label" for="scout">
+                    Scout
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier" checked>
+                  <label class="form-check-label" for="soldier">
+                    Soldier
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro" checked>
+                  <label class="form-check-label" for="pyro">
+                    Pyro
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman" checked>
+                  <label class="form-check-label" for="demoman">
+                    Demoman
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy" checked>
+                  <label class="form-check-label" for="heavy">
+                    Heavy
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer" checked>
+                  <label class="form-check-label" for="engineer">
+                    Engineer
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="medic" id="medic" checked>
+                  <label class="form-check-label" for="medic">
+                    Medic
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper" checked>
+                  <label class="form-check-label" for="sniper">
+                    Sniper
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="spy" id="spy" checked>
+                  <label class="form-check-label" for="spy">
+                    Spy
+                  </label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <h3>7. Your discord username</h3>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                  <input type="text" class="form-control" placeholder="discord#0001" aria-label="discord" aria-describedby="basic-addon1">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <h3>8. A few words about yourself</h3>
+                <label class="mb-2">For example, what things you can teach or who you are as a person.</label>
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <script type="text/javascript">
+        /*
+        * logic for the "Any" checkbox for ages. Toggles all other checkboxes nearby
+        */
+
+        var checkAllElement = document.querySelector('.check-all > input');
+        checkAllElementSiblings = checkAllElement.parentNode.parentNode.querySelectorAll('input:not(.check-all)');
+        
+
+        function checkAll() {
+          for (elem in checkAllElementSiblings) {
+            checkAllElementSiblings[elem].checked = true;
+          }
+        }
+
+
+        function uncheckAll() {
+          for (elem in checkAllElementSiblings) {
+            checkAllElementSiblings[elem].checked = false;
+          }
+        }
+
+
+        function checkboxesState() {
+          console.log('state')
+          var checkedCounter = 0;
+          for (elem in Object.values(checkAllElementSiblings)) {
+            if(checkAllElementSiblings[elem].checked == true) {
+              checkedCounter++;
+            }
+          }
+          if(checkedCounter == 0) {
+            checkAllElement.checked = false;
+            return 'all unchecked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
+          } else if(checkedCounter == checkAllElementSiblings.length) {
+            checkAllElement.checked = true;
+            return 'all checked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
+          } else {
+            checkAllElement.checked = false;
+            return 'some checked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
+          }
+        }
+
+        function toggleSiblings() {
+          if(checkAllElement.checked == true) {
+            checkAll();
+          } else {
+            uncheckAll();
+          }
+        }
+
+
+        for (elem in Object.values(checkAllElementSiblings)) {
+          checkAllElementSiblings[elem].addEventListener('click', checkboxesState);
+        }
+        checkAllElement.addEventListener('click', toggleSiblings);
+      </script>
+      <script type="text/javascript">
+        var voiceChatToggle = document.getElementById('voiceChatAvailable');
+        var speakLanguagesInput = document.getElementById('languages-speaking');
+
+        voiceChatToggle.addEventListener('click', function(){
+          if(this.checked == true) {
+            enableSpeakLanguages();
+          } else {
+            disableSpeakLanguages();
+          }
+        })
+
+        function disableSpeakLanguages() {
+            speakLanguagesInput.disabled = true;
+            speakLanguagesInput.previousElementSibling.classList.add('text-muted');
+        }
+
+        function enableSpeakLanguages() {
+            speakLanguagesInput.disabled = false;
+            speakLanguagesInput.previousElementSibling.classList.remove('text-muted');
+        }
+      </script>
+
+{% endblock %}
