@@ -8,10 +8,34 @@
 			}
 		</style>
 
+
+      <!-- Modal for age input -->
+      <div class="modal fade" id="birth-year-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Your age is kinda weird</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              If you don't want to tell your age, just set the year to 0. However, if a student has age preferences, your profile will not show up.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="edit-birth-year">Fine, I'll change it</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="set-age-0">Set it to 0 for me</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <section class="align-items-center min-vh-100 d-flex main-container">
         <div class="row w-100 mx-auto">
           <div class="col-1 spacer"></div>
           <div class="col-md-8 col-10 my-5 pt-5">
+            <h1>Please fill the profile</h1>
+            <blockquote class="blockquote">
+            <p>It will help people to better understand who you are as a mentor.</p>
+            </blockquote>
             <form>
               {{ form.csrf_token }}
               
@@ -74,7 +98,7 @@
                 <label class="form-label" for="languages-speaking">Which languages can you <strong>speak</strong>? Please specify comma-separated:</label>
                 <input class="form-control" type="text" name="languages-speaking" id="languages-speaking">
                 <label class="form-label mt-3" for="languages-typing">Which languages can you <strong>type</strong>? Please specify comma-separated:</label>
-                <input class="form-control" type="text" name="languages-typing">
+                <input class="form-control" type="text" name="languages-typing" id="languages-typing">
               </div>
               
               <div class="mb-3">
@@ -82,57 +106,57 @@
                 <label class="mb-2">Or, at least, better than average.</label>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="scout" id="scout" checked>
+                  <input class="form-check-input" type="checkbox" value="scout" id="scout">
                   <label class="form-check-label" for="scout">
                     Scout
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier" checked>
+                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier">
                   <label class="form-check-label" for="soldier">
                     Soldier
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro" checked>
+                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro">
                   <label class="form-check-label" for="pyro">
                     Pyro
                   </label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman" checked>
+                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman">
                   <label class="form-check-label" for="demoman">
                     Demoman
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy" checked>
+                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy">
                   <label class="form-check-label" for="heavy">
                     Heavy
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer" checked>
+                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer">
                   <label class="form-check-label" for="engineer">
                     Engineer
                   </label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="medic" id="medic" checked>
+                  <input class="form-check-input" type="checkbox" value="medic" id="medic">
                   <label class="form-check-label" for="medic">
                     Medic
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper" checked>
+                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper">
                   <label class="form-check-label" for="sniper">
                     Sniper
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="spy" id="spy" checked>
+                  <input class="form-check-input" type="checkbox" value="spy" id="spy">
                   <label class="form-check-label" for="spy">
                     Spy
                   </label>
@@ -218,6 +242,9 @@
         checkAllElement.addEventListener('click', toggleSiblings);
       </script>
       <script type="text/javascript">
+        /*
+        * disabling spoken languages if a mentor doesn't want to speak
+        */
         var voiceChatToggle = document.getElementById('voiceChatAvailable');
         var speakLanguagesInput = document.getElementById('languages-speaking');
 
@@ -227,7 +254,7 @@
           } else {
             disableSpeakLanguages();
           }
-        })
+        });
 
         function disableSpeakLanguages() {
             speakLanguagesInput.disabled = true;
@@ -238,6 +265,248 @@
             speakLanguagesInput.disabled = false;
             speakLanguagesInput.previousElementSibling.classList.remove('text-muted');
         }
+      </script>
+
+      <script type="text/javascript">
+        /*
+        * If a mentor doesn't want to specify a real age, tell them they can enter 0
+        */
+        var birthYear = document.getElementById('birth-year');
+        var birthYearModal = new bootstrap.Modal(document.getElementById('birth-year-modal'), {});
+        var birthYearModalSet0 = document.getElementById('set-age-0');
+        var birthYearModalEdit = document.getElementById('edit-birth-year');
+
+        birthYear.addEventListener('blur', function() {
+          if((this.value <= 1940 || this.value >= 2015) && this.value != 0) {
+            birthYearModal.show();
+          }
+        });
+        birthYearModalSet0.addEventListener('click', function() {
+          birthYear.value = 0;
+        });
+        birthYearModalEdit.addEventListener('click', function() {
+          birthYear.focus();
+          birthYear.select();
+        });
+      </script>
+
+      <script type="text/javascript">
+        /*
+        * guessing languages by browser languages
+        */
+        var langCodes = {
+          "af":    "Afrikaans",
+          "sq":    "Albanian",
+          "an":    "Aragonese",
+          "ar":    "Arabic",
+          "ar-dz": "Arabic",
+          "ar-bh": "Arabic",
+          "ar-eg": "Arabic",
+          "ar-iq": "Arabic",
+          "ar-jo": "Arabic",
+          "ar-kw": "Arabic",
+          "ar-lb": "Arabic",
+          "ar-ly": "Arabic",
+          "ar-ma": "Arabic",
+          "ar-om": "Arabic",
+          "ar-qa": "Arabic",
+          "ar-sa": "Arabic",
+          "ar-sy": "Arabic",
+          "ar-tn": "Arabic",
+          "ar-ae": "Arabic",
+          "ar-ye": "Arabic",
+          "hy":    "Armenian",
+          "as":    "Assamese",
+          "ast":   "Asturian",
+          "az":    "Azerbaijani",
+          "eu":    "Basque",
+          "bg":    "Bulgarian",
+          "be":    "Belarusian",
+          "bn":    "Bengali",
+          "bs":    "Bosnian",
+          "br":    "Breton",
+          "bg":    "Bulgarian",
+          "my":    "Burmese",
+          "ca":    "Catalan",
+          "ch":    "Chamorro",
+          "ce":    "Chechen",
+          "zh":    "Chinese",
+          "zh-hk": "Chinese",
+          "zh-cn": "Chinese",
+          "zh-sg": "Chinese",
+          "zh-tw": "Chinese",
+          "cv":    "Chuvash",
+          "co":    "Corsican",
+          "cr":    "Cree",
+          "hr":    "Croatian",
+          "cs":    "Czech",
+          "da":    "Danish",
+          "nl":    "Dutch",
+          "nl-be": "Dutch",
+          "en":    "English",
+          "en-au": "English",
+          "en-bz": "English",
+          "en-ca": "English",
+          "en-ie": "English",
+          "en-jm": "English",
+          "en-nz": "English",
+          "en-ph": "English",
+          "en-za": "English",
+          "en-tt": "English",
+          "en-gb": "English",
+          "en-us": "English",
+          "en-zw": "English",
+          "eo":    "Esperanto",
+          "et":    "Estonian",
+          "fo":    "Faeroese",
+          "fa":    "Farsi",
+          "fj":    "Fijian",
+          "fi":    "Finnish",
+          "fr":    "French",
+          "fr-be": "French",
+          "fr-ca": "French",
+          "fr-fr": "French",
+          "fr-lu": "French",
+          "fr-mc": "French",
+          "fr-ch": "French",
+          "fy":    "Frisian",
+          "fur":   "Friulian",
+          "gd":    "Gaelic",
+          "gd-ie": "Gaelic",
+          "gl":    "Galacian",
+          "ka":    "Georgian",
+          "de":    "German",
+          "de-at": "German",
+          "de-de": "German",
+          "de-li": "German",
+          "de-lu": "German",
+          "de-ch": "German",
+          "el":    "Greek",
+          "gu":    "Gujurati",
+          "ht":    "Haitian",
+          "he":    "Hebrew",
+          "hi":    "Hindi",
+          "hu":    "Hungarian",
+          "is":    "Icelandic",
+          "id":    "Indonesian",
+          "iu":    "Inuktitut",
+          "ga":    "Irish",
+          "it":    "Italian",
+          "it-ch": "Italian",
+          "ja":    "Japanese",
+          "kn":    "Kannada",
+          "ks":    "Kashmiri",
+          "kk":    "Kazakh",
+          "km":    "Khmer",
+          "ky":    "Kirghiz",
+          "tlh":   "Klingon",
+          "ko":    "Korean",
+          "ko-kp": "Korean",
+          "ko-kr": "Korean",
+          "la":    "Latin",
+          "lv":    "Latvian",
+          "lt":    "Lithuanian",
+          "lb":    "Luxembourgish",
+          "mk":    "FYRO Macedonian",
+          "ms":    "Malay",
+          "ml":    "Malayalam",
+          "mt":    "Maltese",
+          "mi":    "Maori",
+          "mr":    "Marathi",
+          "mo":    "Moldavian",
+          "nv":    "Navajo",
+          "ng":    "Ndonga",
+          "ne":    "Nepali",
+          "no":    "Norwegian",
+          "nb":    "Norwegian",
+          "nn":    "Norwegian",
+          "oc":    "Occitan",
+          "or":    "Oriya",
+          "om":    "Oromo",
+          "fa":    "Persian",
+          "fa-ir": "Persian/Iran",
+          "pl":    "Polish",
+          "pt":    "Portuguese",
+          "pt-br": "Portuguese",
+          "pa":    "Punjabi",
+          "pa-in": "Punjabi",
+          "pa-pk": "Punjabi",
+          "qu":    "Quechua",
+          "rm":    "Rhaeto-Romanic",
+          "ro":    "Romanian",
+          "ro-mo": "Romanian",
+          "ru":    "Russian",
+          "ru-mo": "Russian",
+          "sz":    "Sami",
+          "sg":    "Sango",
+          "sa":    "Sanskrit",
+          "sc":    "Sardinian",
+          "gd":    "Scots Gaelic",
+          "sd":    "Sindhi",
+          "si":    "Singhalese",
+          "sr":    "Serbian",
+          "sk":    "Slovak",
+          "sl":    "Slovenian",
+          "so":    "Somani",
+          "sb":    "Sorbian",
+          "es":    "Spanish",
+          "es-ar": "Spanish",
+          "es-bo": "Spanish",
+          "es-cl": "Spanish",
+          "es-co": "Spanish",
+          "es-cr": "Spanish",
+          "es-do": "Spanish",
+          "es-ec": "Spanish",
+          "es-sv": "Spanish",
+          "es-gt": "Spanish",
+          "es-hn": "Spanish",
+          "es-mx": "Spanish",
+          "es-ni": "Spanish",
+          "es-pa": "Spanish",
+          "es-py": "Spanish",
+          "es-pe": "Spanish",
+          "es-pr": "Spanish",
+          "es-es": "Spanish",
+          "es-uy": "Spanish",
+          "es-ve": "Spanish",
+          "sx":    "Sutu",
+          "sw":    "Swahili",
+          "sv":    "Swedish",
+          "sv-fi": "Swedish",
+          "sv-sv": "Swedish",
+          "ta":    "Tamil",
+          "tt":    "Tatar",
+          "te":    "Teluga",
+          "th":    "Thai",
+          "tig":   "Tigre",
+          "ts":    "Tsonga",
+          "tn":    "Tswana",
+          "tr":    "Turkish",
+          "tk":    "Turkmen",
+          "uk":    "Ukrainian",
+          "hsb":   "Upper Sorbian",
+          "ur":    "Urdu",
+          "ve":    "Venda",
+          "vi":    "Vietnamese",
+          "vo":    "Volapuk",
+          "wa":    "Walloon",
+          "cy":    "Welsh",
+          "xh":    "Xhosa",
+          "ji":    "Yiddish",
+          "zu":    "Zulu",
+        };
+
+        var browserLanguages = new Set();
+        var typeLanguagesInput = document.getElementById('languages-typing');
+        // speakLanguagesInput
+
+        for (var lang in navigator.languages) {
+          if(typeof(langCodes[navigator.languages[lang].toLowerCase()]) !== 'undefined') {
+            browserLanguages.add(langCodes[navigator.languages[lang].toLowerCase()]);
+          }
+        }
+        typeLanguagesInput.value = Array.from(browserLanguages).join(', ');
+        speakLanguagesInput.value = Array.from(browserLanguages).join(', ');
       </script>
 
 {% endblock %}
