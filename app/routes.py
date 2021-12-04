@@ -144,9 +144,9 @@ def get_all_mentors():
     return jsonify(mentors=[e.serialize() for e in mentors.items])
 
 
-@helptf.route('/contact')
+@helptf.route('/join-the-team')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', title="help.tf - Join the Team")
 
 
 @helptf.route('/mentors')
@@ -156,12 +156,12 @@ def mentors():
 
 @helptf.route('/become-a-mentor')
 def become_a_mentor():
-    return render_template('mentor-short-guide.html')
+    return render_template('mentor-short-guide.html', title="help.tf - Start")
 
 
 @helptf.route('/mentor-short-guide')
 def mentor_short_guide():
-    return render_template('mentor-short-guide.html')
+    return render_template('mentor-short-guide.html', title="help.tf - Start")
 
 
 @helptf.route('/fill-profile', methods=['GET', 'POST'])
@@ -279,14 +279,22 @@ def fill_the_profile():
             current_user.spy = values['spy']
             current_user.discord = values['discord']
             current_user.about_me = values['about_me']
+            current_user.is_coach = True
             db.session.commit()
-            return "all recorded"
-    return render_template('fill-the-profile.html', form=CSRFForm())
+            return redirect(url_for('thanks_for_applying'))
+    return render_template('fill-the-profile.html', form=form, values=values,
+                           title="help.tf - Mentor's Profile")
 
     # current_user.last_seen = datetime.fromtimestamp(u['last_seen'])
     # current_user.steam_account_created_date = datetime.fromtimestamp(u['steam_account_created_date'])
     # current_user.steam_real_name = u['steam_real_name']
     # db.session.commit()
+
+
+@helptf.route('/thanks-for-applying')
+def thanks_for_applying():
+    return render_template('thanks-for-applying.html',
+                           title="help.tf - You are now a mentor!")
 
 
 @helptf.route('/debug')

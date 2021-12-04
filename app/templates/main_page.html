@@ -4,6 +4,7 @@
 
     <style type="text/css">
       #main-top {
+        background-image: radial-gradient( circle farthest-corner at 16.5% 28.1%, #494963 0%, #323347 90% );
         color: #fff !important;
       }
       .main-page-pic {
@@ -93,7 +94,7 @@
     </style>
 
 
-      <section id="main-top" class="d-flex align-items-center position-relative bg-dark bg-size-cover bg-position-center min-vh-100 overflow-hidden pt-6 pb-lg-5" style="background-image: url({{ url_for('static', filename='img/bg.jpg') }});">
+      <section id="main-top" class="d-flex align-items-center position-relative bg-dark bg-size-cover bg-position-center min-vh-100 overflow-hidden pt-6 pb-lg-5">
         <div class="row">
           <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -110,7 +111,7 @@
           <div class="alert alert-danger d-flex align-items-center alert-development d-none d-lg-flex" role="alert">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
             <div>
-              Alert! This project is under development now and wasn't released yet. Many sufficient parts are missing! <a href="{{ url_for('contact') }}">Message</a> me if you want to help.
+              Alert! This project is under development now and hasn't been released yet. Many sufficient parts are missing! Btw you can <a href="{{ url_for('contact') }}">help</a> ;)
             </div>
           </div>
         </div>
@@ -298,14 +299,5 @@
           </div>
         </div>
       </section>
-      <section id="footer" class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Other link</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-        </ul>
-        <p class="text-center text-muted">Copyright: LOLOLOL</p>
-      </section>
+{% include "footer.html" %}
 {% endblock %}

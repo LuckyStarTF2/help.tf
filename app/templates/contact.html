@@ -1,13 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
-</head>
-<body>
-<p>I appreciate that you want to help <3 </p>
-<p>Discord: LuckyStar#2562</p>
-<p><a href="https://steamcommunity.com/id/luckystartf2/">Steam</a></p>
-<p>Email: <a href="mailto:luckystartf2@gmail.com">luckystartf2@gmail.com</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+{% set theme = "light" %}
+{% block content %}
+
+    <style type="text/css">
+      .navbar {
+        color: #111;
+      }
+      .w-100.mt-auto {
+        color:  #fff;
+      }
+      .page-wrapper {
+        background-image: linear-gradient( 95.2deg,  rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );
+      }
+    </style>
+      <main class="page-wrapper align-items-center min-vh-100 d-flex">
+          <div class="row px-2 mx-2 px-md-5 mx-md-5">
+            <div class="col">
+                <h1 class="display-4">help.tf needs your help.</h1>
+                <p class="fs-5">Besides mentors, this place needs people with some specific skills: </p>
+                <ul class="fs-5">
+                    <li><strong>Language checking.</strong> Since I'm not a native English speaker, I can make stupid mistakes. I need someone with fluent English and who is good in writing to check old and new texts, improve the style and write something on their own.</li>
+                    <li><strong>Web design.</strong> If you have a good eye on what is beauty (unlike engineer) in terms of UI, I could use some tweaks and improvements to this site's design.</li>
+                    <li><strong>Contact making.</strong> If you know people who can help this project grow, if you know how to let new players know about help.tf, I need you. </li>
+                    <li><strong>Guides writing.</strong> I'm going to create the best guide for newbies - useful and clear. So anyone from a 9 year old kid to your granma could improve in TF2.</li>
+                </ul>
+                <p class="fs-5">If you have the experience with anything described above and are willing to help, please DM me in Discord: LuckyStar#2562</p>
+                <p class="fs-5">If you don't have the described experience, but you think you could help in other way, DM me too.</p>
+                <p class="fs-5">Thanks for coming, anyways <3</p>
+            </div>
+        </div>
+      </main>
+        <img src="{{ url_for('static', filename='/img/demo-conga.gif') }}">
+{% include "footer.html" %}
+{% endblock %}

@@ -51,10 +51,10 @@
                 <h3>1. World Part</h3>
                 <label for="world-part" class="form-label">This is used to prioritize mentors by their location - lower ping and closer timezone make things easier.</label>
                 <select class="form-select" aria-label="World Part" id="world-part" name="world-part">
-                  <option selected value="NA">North America</option>
-                  <option value="EU">Europe</option>
-                  <option value="ASIA">Asia</option>
-                  <option value="SA">South America</option>
+                  <option {% if values['world_part'] == 'NA' %} selected {% endif %} value="NA">North America</option>
+                  <option {% if values['world_part'] == 'EU' %} selected {% endif %} value="EU">Europe</option>
+                  <option {% if values['world_part'] == 'ASIA' %} selected {% endif %} value="ASIA">Asia</option>
+                  <option {% if values['world_part'] == 'SA' %} selected {% endif %} value="SA">South America</option>
                 </select>
               </div>
               
@@ -62,25 +62,25 @@
                 <h3>2. Preferrable age</h3>
                 <label class="mb-2">Which age is comfortable for you to communicate with?</label>
                 <div class="form-check mb-2 check-all">
-                  <input class="form-check-input check-all" type="checkbox" value="" id="flexCheckDefault" checked>
+                  <input class="form-check-input check-all" type="checkbox" value="" id="flexCheckDefault" {% if values['acceptable_age_13_15'] == False and values['acceptable_age_15_18'] == False and values['acceptable_age_18_plus'] == False %}{% else %}checked{% endif %}>
                   <label class="form-check-label" for="flexCheckDefault">
                     Any
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="13-15" name="13-15" id="13-15" checked>
+                  <input class="form-check-input" type="checkbox" value="13-15" name="13-15" id="13-15" {% if values['acceptable_age_13_15'] and values['acceptable_age_13_15'] == False %}{% else %}checked{% endif %}>
                   <label class="form-check-label" for="13-15">
                     13-15 years
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="15-18" name="15-18" id="15-18" checked>
+                  <input class="form-check-input" type="checkbox" value="15-18" name="15-18" id="15-18" {% if values['acceptable_age_15_18'] and values['acceptable_age_15_18'] == False %}{% else %}checked{% endif %}>
                   <label class="form-check-label" for="15-18">
                     15-18 years
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="18+" name="18+" id="18+" checked>
+                  <input class="form-check-input" type="checkbox" value="18+" name="18+" id="18+" {% if values['acceptable_age_18_plus'] and values['acceptable_age_18_plus'] == False %}{% else %}checked{% endif %}>
                   <label class="form-check-label" for="18+">
                     18+
                   </label>
@@ -90,13 +90,13 @@
               <div class="mb-3">
                 <h3>3. Your year of birth</h1>
                   <label for="birth-year" class="mb-2">Students may also have age preferences.</label>
-                  <input type="number" name="birth-year" class="form-control" value="2000" id="birth-year" style="width: 6rem;">
+                  <input type="number" name="birth-year" class="form-control" value="{% if values['birth_year'] and values['birth_year'].isnumeric() %}{{values['birth_year']}}{% else %}2000{% endif %}" id="birth-year" style="width: 6rem;">
               </div>
               
               <div class="mb-3">
                 <h3>4. Are you available for voice chat?</h3>
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="voiceChatAvailable" name="voiceChatAvailable" checked>
+                  <input class="form-check-input" type="checkbox" role="switch" id="voiceChatAvailable" name="voiceChatAvailable" {% if 'voice_chat' in values and values['voice_chat'] == False %}{% else %}checked{% endif %}>
                   <label class="form-check-label" for="voiceChatAvailable">I'm ready for calls</label>
                 </div>
               </div>
@@ -104,9 +104,9 @@
               <div class="mb-3">
                 <h3>5. Languages</h3>
                 <label class="form-label" for="languages-speaking">Which languages can you <strong>speak</strong>? Please specify comma-separated:</label>
-                <input class="form-control" type="text" name="languages-speaking" id="languages-speaking">
+                <input class="form-control" type="text" name="languages-speaking" id="languages-speaking" {% if values['languages_speaking'] %}value="{{ values['languages_speaking'] }}"{% endif %}>
                 <label class="form-label mt-3" for="languages-typing">Which languages can you <strong>type</strong>? Please specify comma-separated:</label>
-                <input class="form-control" type="text" name="languages-typing" id="languages-typing">
+                <input class="form-control" type="text" name="languages-typing" id="languages-typing" {% if values['languages_typing'] %}value="{{ values['languages_typing'] }}"{% endif %}>
               </div>
               
               <div class="mb-3">
@@ -114,57 +114,57 @@
                 <label class="mb-2">Or, at least, better than average.</label>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="scout" id="scout" name="scout">
+                  <input class="form-check-input" type="checkbox" value="scout" id="scout" name="scout" {% if 'scout' in values and values['scout'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="scout">
                     Scout
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier" name="soldier">
+                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier" name="soldier" {% if 'soldier' in values and values['soldier'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="soldier">
                     Soldier
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro" name="pyro">
+                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro" name="pyro" {% if 'pyro' in values and values['pyro'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="pyro">
                     Pyro
                   </label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman" name="demoman">
+                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman" name="demoman" {% if 'demoman' in values and values['demoman'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="demoman">
                     Demoman
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy" name="heavy">
+                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy" name="heavy" {% if 'heavy' in values and values['heavy'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="heavy">
                     Heavy
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer" name="engineer">
+                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer" name="engineer" {% if 'engineer' in values and values['engineer'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="engineer">
                     Engineer
                   </label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="medic" id="medic" name="medic">
+                  <input class="form-check-input" type="checkbox" value="medic" id="medic" name="medic" {% if 'medic' in values and values['medic'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="medic">
                     Medic
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper" name="sniper">
+                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper" name="sniper" {% if 'sniper' in values and values['sniper'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="sniper">
                     Sniper
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="spy" id="spy" name="spy">
+                  <input class="form-check-input" type="checkbox" value="spy" id="spy" name="spy" {% if 'spy' in values and values['spy'] == True %}checked{% endif %}>
                   <label class="form-check-label" for="spy">
                     Spy
                   </label>
@@ -175,14 +175,14 @@
                 <h3>7. Your discord username</h3>
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">@</span>
-                  <input type="text" class="form-control" placeholder="discord#0001" aria-label="discord" aria-describedby="basic-addon1" name="discord">
+                  <input type="text" class="form-control" placeholder="discord#0001" aria-label="discord" aria-describedby="basic-addon1" name="discord" {% if 'discord' in values %}value="{{ values['discord'] }}"{% endif %}>
                 </div>
               </div>
 
               <div class="mb-3">
                 <h3>8. A few words about yourself</h3>
                 <label class="mb-2">For example, what things you can teach or who you are as a person.</label>
-                <textarea class="form-control" rows="3" name="about-me"></textarea>
+                <textarea class="form-control" rows="3" name="about-me" {% if 'about_me' in values %}value="{{ values['about_me'] }}"{% endif %}></textarea>
               </div>
 
 
@@ -274,6 +274,9 @@
             speakLanguagesInput.disabled = false;
             speakLanguagesInput.previousElementSibling.classList.remove('text-muted');
         }
+        {% if 'voice_chat' in values and values['voice_chat'] == False %}
+        disableSpeakLanguages();
+        {% endif %}
       </script>
 
       <script type="text/javascript">

@@ -34,38 +34,6 @@
     </style>
 
     <main class="page-wrapper">
-      <nav class="header navbar navbar-expand-lg navbar-floating navbar-sticky navbar-dark fs-5" aria-label="navbar">
-        <div class="container px-5" style="max-width: none;">
-          <a class="navbar-brand fs-4 ps-1 pt-1 display-5 st-1" href="{{ url_for('index') }}">HELP.TF</a>
-          <div class="collapse navbar-collapse" id="navbarsExample07">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Mentors</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Discord</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" title="Not yet, but thanks <3">Donate</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Tips</a>
-                <ul class="dropdown-menu" aria-labelledby="dropdown07">
-                  <li><a class="dropdown-item" href="#">Basics</a></li>
-                  <li><a class="dropdown-item" href="#">Class-specific</a></li>
-                  <li><a class="dropdown-item" href="#">Hats, weapons and trading</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('mentor_short_guide') }}" style="padding-top: 6px;"><button class="btn btn-outline-light btn-sm me-2 ms-3" type="button">Become a mentor</button></a>
-              </li>
-            </ul>
-            <div class="d-flex align-items-center order-lg-3 ms-lg-auto">
-              <a href="{{ url_for('auth') }}"><img src="{{ url_for('static', filename='img/sits_small.png') }}"></a>
-            </div>
-          </div>
-        </div>
-      </nav>
 
         <div id="carouselBecomeAMentor" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" data-bs-touch="false" >
           <div class="carousel-indicators">

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% set theme = "light" %}
+{% block content %}
+
+    <style type="text/css">
+      .navbar {
+        color: #111;
+      }
+      .w-100.mt-auto {
+        color:  #fff;
+      }
+      .page-wrapper {
+        background-image: radial-gradient( circle farthest-corner at 50.7% 54%,  rgba(204,254,152,1) 0%, rgba(229,253,190,1) 92.4% );
+      }
+    </style>
+      <main class="page-wrapper align-items-center min-vh-100 d-flex">
+          <div class="row px-2 mx-2 px-md-5 mx-md-5">
+            <div class="col">
+                <h1 class="display-4">All set!</h1>
+                <p class="fs-5">Thanks for your interest. I need to make some things work before the launch, so there are nothing to do yet. Join the <a href="https://discord.gg/GYvsaTyaM7">Discord server</a> to get notified when the project is ready.</p>
+                <a href="https://discord.gg/GYvsaTyaM7" type="button" class="btn btn-success btn-lg carousel-btn-next float-end mt-4 me-4">Discord</a>
+            </div>
+        </div>
+      </main>
+{% include "footer.html" %}
+{% endblock %}
