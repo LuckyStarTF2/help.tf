@@ -20,6 +20,28 @@ class User(db.Model):
     steam_account_created_date = db.Column(db.DateTime)  # timecreated
     steam_real_name = db.Column(db.String(128))  # realname
     steam_status = db.Column(db.Integer)  # personastate
+    # ############### Mentor Profile ########################## #
+    world_part = db.Column(db.String(10))
+    acceptable_age_13_15 = db.Column(db.Boolean)
+    acceptable_age_15_18 = db.Column(db.Boolean)
+    acceptable_age_18_plus = db.Column(db.Boolean)
+    birth_year = db.Column(db.Integer)
+    voice_chat = db.Column(db.Boolean)
+    languages_speaking = db.Column(db.String(256))
+    languages_typing = db.Column(db.String(256))
+    scout = db.Column(db.Boolean)
+    soldier = db.Column(db.Boolean)
+    pyro = db.Column(db.Boolean)
+    demoman = db.Column(db.Boolean)
+    heavy = db.Column(db.Boolean)
+    engineer = db.Column(db.Boolean)
+    medic = db.Column(db.Boolean)
+    sniper = db.Column(db.Boolean)
+    spy = db.Column(db.Boolean)
+    discord = db.Column(db.String(128))
+    about_me = db.Column(db.String(4096))
+    active_coach = db.Column(db.Boolean)
+    approved = db.Column(db.Boolean)
 
     @property
     def is_authenticated(self):

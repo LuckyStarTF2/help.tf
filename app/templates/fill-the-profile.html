@@ -6,6 +6,9 @@
 			.page-wrapper {
 				background: linear-gradient(90deg,#bfa6ec,#65b2e2,#2addd8);
 			}
+      .toast-body {
+        border-radius: 0.2rem;
+      }
 		</style>
 
 
@@ -28,21 +31,26 @@
         </div>
       </div>
 
+      <!-- Validation Errors -->
+
+      <div class="position-fixed bottom-0 end-0 p-3 top-0 end-0 toast-container" style="z-index: 11" id="toasts-container">
+      </div>
+
       <section class="align-items-center min-vh-100 d-flex main-container">
         <div class="row w-100 mx-auto">
           <div class="col-1 spacer"></div>
           <div class="col-md-8 col-10 my-5 pt-5">
-            <h1>Please fill the profile</h1>
+            <h1>Please fill your profile</h1>
             <blockquote class="blockquote">
             <p>It will help people to better understand who you are as a mentor.</p>
             </blockquote>
-            <form>
+            <form action="" method="POST">
               {{ form.csrf_token }}
               
               <div class="mb-3">
                 <h3>1. World Part</h3>
                 <label for="world-part" class="form-label">This is used to prioritize mentors by their location - lower ping and closer timezone make things easier.</label>
-                <select class="form-select" aria-label="World Part" id="world-part">
+                <select class="form-select" aria-label="World Part" id="world-part" name="world-part">
                   <option selected value="NA">North America</option>
                   <option value="EU">Europe</option>
                   <option value="ASIA">Asia</option>
@@ -60,19 +68,19 @@
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="13-15" id="13-15" checked>
+                  <input class="form-check-input" type="checkbox" value="13-15" name="13-15" id="13-15" checked>
                   <label class="form-check-label" for="13-15">
                     13-15 years
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="15-18" id="15-18" checked>
+                  <input class="form-check-input" type="checkbox" value="15-18" name="15-18" id="15-18" checked>
                   <label class="form-check-label" for="15-18">
                     15-18 years
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="18+" id="18+" checked>
+                  <input class="form-check-input" type="checkbox" value="18+" name="18+" id="18+" checked>
                   <label class="form-check-label" for="18+">
                     18+
                   </label>
@@ -88,7 +96,7 @@
               <div class="mb-3">
                 <h3>4. Are you available for voice chat?</h3>
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="voiceChatAvailable" checked>
+                  <input class="form-check-input" type="checkbox" role="switch" id="voiceChatAvailable" name="voiceChatAvailable" checked>
                   <label class="form-check-label" for="voiceChatAvailable">I'm ready for calls</label>
                 </div>
               </div>
@@ -106,57 +114,57 @@
                 <label class="mb-2">Or, at least, better than average.</label>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="scout" id="scout">
+                  <input class="form-check-input" type="checkbox" value="scout" id="scout" name="scout">
                   <label class="form-check-label" for="scout">
                     Scout
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier">
+                  <input class="form-check-input" type="checkbox" value="soldier" id="soldier" name="soldier">
                   <label class="form-check-label" for="soldier">
                     Soldier
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro">
+                  <input class="form-check-input" type="checkbox" value="pyro" id="pyro" name="pyro">
                   <label class="form-check-label" for="pyro">
                     Pyro
                   </label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman">
+                  <input class="form-check-input" type="checkbox" value="demoman" id="demoman" name="demoman">
                   <label class="form-check-label" for="demoman">
                     Demoman
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy">
+                  <input class="form-check-input" type="checkbox" value="heavy" id="heavy" name="heavy">
                   <label class="form-check-label" for="heavy">
                     Heavy
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer">
+                  <input class="form-check-input" type="checkbox" value="engineer" id="engineer" name="engineer">
                   <label class="form-check-label" for="engineer">
                     Engineer
                   </label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="medic" id="medic">
+                  <input class="form-check-input" type="checkbox" value="medic" id="medic" name="medic">
                   <label class="form-check-label" for="medic">
                     Medic
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper">
+                  <input class="form-check-input" type="checkbox" value="sniper" id="sniper" name="sniper">
                   <label class="form-check-label" for="sniper">
                     Sniper
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="spy" id="spy">
+                  <input class="form-check-input" type="checkbox" value="spy" id="spy" name="spy">
                   <label class="form-check-label" for="spy">
                     Spy
                   </label>
@@ -167,14 +175,14 @@
                 <h3>7. Your discord username</h3>
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">@</span>
-                  <input type="text" class="form-control" placeholder="discord#0001" aria-label="discord" aria-describedby="basic-addon1">
+                  <input type="text" class="form-control" placeholder="discord#0001" aria-label="discord" aria-describedby="basic-addon1" name="discord">
                 </div>
               </div>
 
               <div class="mb-3">
                 <h3>8. A few words about yourself</h3>
                 <label class="mb-2">For example, what things you can teach or who you are as a person.</label>
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3" name="about-me"></textarea>
               </div>
 
 
@@ -241,6 +249,7 @@
         }
         checkAllElement.addEventListener('click', toggleSiblings);
       </script>
+
       <script type="text/javascript">
         /*
         * disabling spoken languages if a mentor doesn't want to speak
@@ -505,8 +514,30 @@
             browserLanguages.add(langCodes[navigator.languages[lang].toLowerCase()]);
           }
         }
-        typeLanguagesInput.value = Array.from(browserLanguages).join(', ');
-        speakLanguagesInput.value = Array.from(browserLanguages).join(', ');
+        if(typeLanguagesInput.value == '') {
+          typeLanguagesInput.value = Array.from(browserLanguages).join(', ');
+        }
+        if(speakLanguagesInput.value == '') {
+          speakLanguagesInput.value = Array.from(browserLanguages).join(', ');
+        }
       </script>
+
+      <script type="text/javascript">
+        /*
+        * Showing validation error messages 
+        */
+        var toastsCounter = 0;
+        var toastsContainer = document.getElementById('toasts-container');
+        function showToast(msg) {
+          var toastHTML = '<div id="toast-' + toastsCounter + '" class="toast" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-body bg-danger text-white">' + msg + '</div></div>';
+          toastsContainer.insertAdjacentHTML('beforeend', toastHTML);
+          var toast = new bootstrap.Toast(document.getElementById("toast-" + toastsCounter));
+          toastsCounter++;
+          toast.show();
+        }
+      </script>
+      {% for error in errors %}
+      <script type="text/javascript">showToast('{{ error }}');</script>
+      {% endfor %}
 
 {% endblock %}

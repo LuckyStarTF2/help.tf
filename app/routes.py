@@ -164,9 +164,129 @@ def mentor_short_guide():
     return render_template('mentor-short-guide.html')
 
 
-@helptf.route('/fill-profile')
+@helptf.route('/fill-profile', methods=['GET', 'POST'])
 def fill_the_profile():
+    form = CSRFForm()
+    values = {}
+    errors = []
+    if form.validate_on_submit():
+        print(str(request.form))
+        if "world-part" in request.form and request.form['world-part'] in \
+                ('NA', 'EU', 'ASIA', 'SA'):
+            values['world_part'] = request.form['world-part']
+        else:
+            errors.append("Something is wrong with world part.")
+        if "13-15" in request.form:
+            values['acceptable_age_13_15'] = True
+        else:
+            values['acceptable_age_13_15'] = False
+        if "15-18" in request.form:
+            values['acceptable_age_15_18'] = True
+        else:
+            values['acceptable_age_15_18'] = False
+        if "18+" in request.form:
+            values['acceptable_age_18_plus'] = True
+        else:
+            values['acceptable_age_18_plus'] = False
+        if "birth-year" in request.form \
+                and request.form['birth-year'].isnumeric():
+            values['birth_year'] = request.form['birth-year']
+        else:
+            errors.append("Please enter a valid birth year or '0'.")
+        if "voiceChatAvailable" in request.form:
+            values['voice_chat'] = True
+        else:
+            values['voice_chat'] = False
+        if "languages-speaking" in request.form \
+                and request.form['languages-speaking'] != '':
+            values['languages_speaking'] = request.form['languages-speaking']
+        elif "voiceChatAvailable" not in request.form:
+            values['languages_speaking'] = None
+        else:
+            errors.append("You didn't specify languages you speak.")
+        if "languages-typing" in request.form \
+                and request.form['languages-typing'] != '':
+            values['languages_typing'] = request.form['languages-typing']
+        else:
+            errors.append("You didn't specify languages you can write.")
+        if "scout" in request.form:
+            values['scout'] = True
+        else:
+            values['scout'] = False
+        if "soldier" in request.form:
+            values['soldier'] = True
+        else:
+            values['soldier'] = False
+        if "pyro" in request.form:
+            values['pyro'] = True
+        else:
+            values['pyro'] = False
+        if "demoman" in request.form:
+            values['demoman'] = True
+        else:
+            values['demoman'] = False
+        if "heavy" in request.form:
+            values['heavy'] = True
+        else:
+            values['heavy'] = False
+        if "engineer" in request.form:
+            values['engineer'] = True
+        else:
+            values['engineer'] = False
+        if "medic" in request.form:
+            values['medic'] = True
+        else:
+            values['medic'] = False
+        if "sniper" in request.form:
+            values['sniper'] = True
+        else:
+            values['sniper'] = False
+        if "spy" in request.form:
+            values['spy'] = True
+        else:
+            values['spy'] = False
+        if "discord" in request.form and request.form['discord'] != '':
+            values['discord'] = request.form['discord']
+        else:
+            errors.append("Your discord username is important, please enter it.")
+        if "about-me" in request.form and request.form['about-me'] != '':
+            values['about_me'] = request.form['about-me']
+        else:
+            values['about_me'] = False
+            # ########
+        if len(errors) > 0:
+            print(errors)
+            return render_template('fill-the-profile.html', form=form, \
+                                   errors=errors, values=values)
+        else:
+            current_user.world_part = values['world_part']
+            current_user.acceptable_age_13_15 = values['acceptable_age_13_15']
+            current_user.acceptable_age_15_18 = values['acceptable_age_15_18']
+            current_user.acceptable_age_18_plus = values[
+                'acceptable_age_18_plus']
+            current_user.birth_year = values['birth_year']
+            current_user.voice_chat = values['voice_chat']
+            current_user.languages_speaking = values['languages_speaking']
+            current_user.languages_typing = values['languages_typing']
+            current_user.scout = values['scout']
+            current_user.soldier = values['soldier']
+            current_user.pyro = values['pyro']
+            current_user.demoman = values['demoman']
+            current_user.heavy = values['heavy']
+            current_user.engineer = values['engineer']
+            current_user.medic = values['medic']
+            current_user.sniper = values['sniper']
+            current_user.spy = values['spy']
+            current_user.discord = values['discord']
+            current_user.about_me = values['about_me']
+            db.session.commit()
+            return "all recorded"
     return render_template('fill-the-profile.html', form=CSRFForm())
+
+    # current_user.last_seen = datetime.fromtimestamp(u['last_seen'])
+    # current_user.steam_account_created_date = datetime.fromtimestamp(u['steam_account_created_date'])
+    # current_user.steam_real_name = u['steam_real_name']
+    # db.session.commit()
 
 
 @helptf.route('/debug')
