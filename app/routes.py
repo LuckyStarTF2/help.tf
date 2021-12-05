@@ -12,6 +12,11 @@ def load_user(id):
     return User.query.get(int(id))
 
 
+@lm.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/auth?next=' + request.path)
+
+
 @helptf.before_request
 def before_request():
     g.user = current_user
@@ -25,7 +30,11 @@ def after_login(resp):
     # https://steamcommunity.com/openid/id/number
 
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        if request.args.get('next') \
+                and request.args.get("openid_complete") == "yes":
+            return redirect(request.args.get('next'))
+        else:
+            return redirect(url_for('index'))
     else:
         user = User.query.filter_by(steamid=int(str(resp.identity_url).split("/")[5])).first()
         if user is None:
@@ -36,12 +45,16 @@ def after_login(resp):
             print("New user signed up: " + str(resp.identity_url).split("/")[5])
             login_user(user, remember=True)
             print("User just logged in: " + str(resp.identity_url).split("/")[5])
-            return redirect(url_for('index'))
+            return redirect(url_for('update_profile'))
         else:
             # authenticate a user
             login_user(user, remember=True)
             print("User just logged in: " + str(resp.identity_url).split("/")[5])
-            return redirect(url_for('index'))
+            if request.args.get('next') \
+                    and request.args.get("openid_complete") == "yes":
+                return redirect(request.args.get('next'))
+            else:
+                return redirect(url_for('index'))
 
 
 @helptf.route('/')
@@ -63,10 +76,14 @@ def auth():
     if form.validate_on_submit():
         session['remember_me'] = True
         return oid.try_login('https://steamcommunity.com/openid', ask_for=['nickname'])
+    if request.args.get('next'):
+        next = request.args.get('next')
+    else:
+        next = url_for('index')
     return render_template('auth.html',
                            form=form,
                            providers={'name': 'Steam', 'url': 'https://steamcommunity.com/openid'},
-                           next=url_for('index'))
+                           next=next)
 
 
 @helptf.route('/logout')
@@ -165,6 +182,7 @@ def mentor_short_guide():
 
 
 @helptf.route('/fill-profile', methods=['GET', 'POST'])
+@login_required
 def fill_the_profile():
     form = CSRFForm()
     values = {}

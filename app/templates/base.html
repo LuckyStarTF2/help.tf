@@ -61,7 +61,7 @@
                   <li><a class="dropdown-item" href="#">Hats, weapons and trading</a></li>
                 </ul>
               </li>
-              {% if current_user.is_mentor and current_user.is_mentor == 1 %}
+              {% if not current_user.is_mentor or current_user.is_mentor == 0 %}
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('become_a_mentor') }}" style="padding-top: 6px;"><button class="btn btn-outline-{% if theme == "light" %}dark{% else %}light{% endif %} btn-sm me-2 ms-3" type="button">Become a mentor</button></a>
               </li>
