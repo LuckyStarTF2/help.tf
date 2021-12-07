@@ -156,7 +156,7 @@ def u(steamid):
 @helptf.route('/getallmentors')
 def get_all_mentors():
     page = request.args.get('page', 1, type=int)
-    mentors = User.query.filter_by(is_coach=1).order_by(User.is_coach)\
+    mentors = User.query.filter_by(is_mentor=1).order_by(User.is_mentor)\
         .paginate(page, helptf.config['JSON_MENTORS_PER_REQUEST'], False)
     return jsonify(mentors=[e.serialize() for e in mentors.items])
 
@@ -297,7 +297,7 @@ def fill_the_profile():
             current_user.spy = values['spy']
             current_user.discord = values['discord']
             current_user.about_me = values['about_me']
-            current_user.is_coach = True
+            current_user.is_mentor = True
             db.session.commit()
             return redirect(url_for('thanks_for_applying'))
     return render_template('fill-the-profile.html', form=form, values=values,

@@ -10,7 +10,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     steamid = db.Column(db.BigInteger)
     created_ts = db.Column(db.DateTime, default=datetime.utcnow)
-    is_coach = db.Column(db.Boolean, default=0)
+    is_mentor = db.Column(db.Boolean, default=0)
     nickname = db.Column(db.String(32))  # personaname
     avatar32 = db.Column(db.String(128))  # avatar
     avatar64 = db.Column(db.String(128))  # avatarmedium
