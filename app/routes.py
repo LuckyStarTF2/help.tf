@@ -24,11 +24,6 @@ def before_request():
 
 @oid.after_login
 def after_login(resp):
-    # return redirect(url_for('index'))
-    # return str(resp.identity_url)
-    # <- resp.identity_url это как раз-таки
-    # https://steamcommunity.com/openid/id/number
-
     if current_user.is_authenticated:
         if request.args.get('next') \
                 and request.args.get("openid_complete") == "yes":
@@ -45,7 +40,12 @@ def after_login(resp):
             print("New user signed up: " + str(resp.identity_url).split("/")[5])
             login_user(user, remember=True)
             print("User just logged in: " + str(resp.identity_url).split("/")[5])
-            return redirect(url_for('update_profile'))
+            update_profile()
+            if request.args.get('next') \
+                    and request.args.get("openid_complete") == "yes":
+                return redirect(request.args.get('next'))
+            else:
+                return redirect(url_for('index'))
         else:
             # authenticate a user
             login_user(user, remember=True)
