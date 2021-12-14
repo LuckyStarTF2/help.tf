@@ -42,6 +42,7 @@ class User(db.Model):
     about_me = db.Column(db.String(4096))
     active_coach = db.Column(db.Boolean)
     approved = db.Column(db.Boolean)
+    updated_datetime = db.Column(db.DateTime)
 
     @property
     def is_authenticated(self):
