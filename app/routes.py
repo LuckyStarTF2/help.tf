@@ -78,10 +78,10 @@ def after_login(resp):
             user = User(steamid=str(resp.identity_url).split("/")[5])
             db.session.add(user)
             db.session.commit()
-            print("New user signed up: " + str(resp.identity_url).split("/")[5])
+            # print("New user signed up: " + str(resp.identity_url).split("/")[5])
             helptf.logger.info('New user {} signed up from ip {}'.format(str(resp.identity_url).split("/")[5], request.remote_addr))
             login_user(user, remember=True)
-            print("User just logged in: " + str(resp.identity_url).split("/")[5])
+            # print("User just logged in: " + str(resp.identity_url).split("/")[5])
             update_profile()
             if request.args.get('next') \
                     and request.args.get("openid_complete") == "yes":
@@ -92,7 +92,7 @@ def after_login(resp):
             # authenticate a user
             login_user(user, remember=True)
             helptf.logger.info('User {} ({}) logged in from ip {}'.format(str(resp.identity_url).split("/")[5], current_user.nickname, request.remote_addr))
-            print("User just logged in: " + str(resp.identity_url).split("/")[5])
+            # print("User just logged in: " + str(resp.identity_url).split("/")[5])
             if request.args.get('next') \
                     and request.args.get("openid_complete") == "yes":
                 return redirect(request.args.get('next'))
@@ -318,7 +318,7 @@ def fill_the_profile():
             values['about_me'] = False
             # ########
         if len(errors) > 0:
-            print(errors)
+            # print(errors)
             helptf.logger.info('User {} ({}) didn\'t fill all the fields in becoming a mentor form'.format(current_user.steamid, current_user.nickname))
             return render_template('fill-the-profile.html', form=form,
                                    errors=errors, values=values)
