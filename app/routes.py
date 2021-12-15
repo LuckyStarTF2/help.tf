@@ -5,7 +5,6 @@ from app.forms import LoginForm, CSRFForm
 from app.models import User
 from datetime import datetime
 import requests
-import click
 
 
 @helptf.cli.command("update-all-profiles")
@@ -17,6 +16,7 @@ def update_all_profiles():
             not helptf.config['STEAM_API_KEY']:
         return 'Error: steam api key is not defined'
     users_list = User.query.all()
+    helptf.logger.info('bulk profile update: {} profiles'.format(len(users_list)))
     times_to_repeat = divmod(len(users_list), items_per_page)[0]
     for i in range(times_to_repeat + 1):
         list_tmp = []
@@ -25,8 +25,9 @@ def update_all_profiles():
                 list_tmp.append(users_list[j + (i*items_per_page)].steamid)
         r = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}'.format(helptf.config['STEAM_API_KEY'], ','.join(str(steamid) for steamid in list_tmp)))
         if r.status_code != 200:
+            helptf.logger.error('bulk profile update has failed, code {}, error: {}'.format(str(r.status_code), r.text))
             return 'Retrieving user data has failed (' + \
-                r.status_code + ')'
+                str(r.status_code) + ')'
         # print(','.join(str(steamid) for steamid in list_tmp) + ": " + str(r.status_code))
         response_users = r.json()['response']['players']
         for ru in response_users:
@@ -42,6 +43,7 @@ def update_all_profiles():
                         'steam_status': ru['personastate'],
                         'updated_datetime': datetime.now()})
         db.session.commit()
+        helptf.logger.info('bulk profile update successful')
     return str(len(users_list)) + ' users were updated successfully with ' + \
            str(times_to_repeat + 1) + ' requests'
 
@@ -77,6 +79,7 @@ def after_login(resp):
             db.session.add(user)
             db.session.commit()
             print("New user signed up: " + str(resp.identity_url).split("/")[5])
+            helptf.logger.info('New user {} signed up from ip {}'.format(str(resp.identity_url).split("/")[5], request.remote_addr))
             login_user(user, remember=True)
             print("User just logged in: " + str(resp.identity_url).split("/")[5])
             update_profile()
@@ -88,6 +91,7 @@ def after_login(resp):
         else:
             # authenticate a user
             login_user(user, remember=True)
+            helptf.logger.info('User {} ({}) logged in from ip {}'.format(str(resp.identity_url).split("/")[5], current_user.nickname, request.remote_addr))
             print("User just logged in: " + str(resp.identity_url).split("/")[5])
             if request.args.get('next') \
                     and request.args.get("openid_complete") == "yes":
@@ -127,6 +131,7 @@ def auth():
 
 @helptf.route('/logout')
 def logout():
+    helptf.logger.info('Logout user {} ({})'.format(current_user.steamid, current_user.nickname))
     logout_user()
     return redirect(url_for('index'))
 
@@ -144,6 +149,7 @@ def update_profile():
     current_user.steam_account_created_date = datetime.fromtimestamp(u['steam_account_created_date'])
     current_user.steam_real_name = u['steam_real_name']
     db.session.commit()
+    helptf.logger.info('Updated user info {} ({})'.format(current_user.steamid, current_user.nickname))
     return redirect(url_for('index'))
 
 
@@ -226,8 +232,8 @@ def fill_the_profile():
     form = CSRFForm()
     values = {}
     errors = []
-    if form.validate_on_submit():
-        print(str(request.form))
+    if request.form and form.validate_on_submit():
+        # print(str(request.form))
         if "world-part" in request.form and request.form['world-part'] in \
                 ('NA', 'EU', 'ASIA', 'SA'):
             values['world_part'] = request.form['world-part']
@@ -313,7 +319,8 @@ def fill_the_profile():
             # ########
         if len(errors) > 0:
             print(errors)
-            return render_template('fill-the-profile.html', form=form, \
+            helptf.logger.info('User {} ({}) didn\'t fill all the fields in becoming a mentor form'.format(current_user.steamid, current_user.nickname))
+            return render_template('fill-the-profile.html', form=form,
                                    errors=errors, values=values)
         else:
             current_user.world_part = values['world_part']
@@ -338,7 +345,10 @@ def fill_the_profile():
             current_user.about_me = values['about_me']
             current_user.is_mentor = True
             db.session.commit()
+            helptf.logger.info('User {} ({}) just filled their profile to become a mentor'.format(current_user.steamid, current_user.nickname))
             return redirect(url_for('thanks_for_applying'))
+    elif request.form:
+        helptf.logger.error('CSRF error while filling mentor\'s profile for user {} ({})'.format(current_user.steamid, current_user.nickname))
     return render_template('fill-the-profile.html', form=form, values=values,
                            title="help.tf - Mentor's Profile")
 
@@ -356,5 +366,4 @@ def thanks_for_applying():
 
 @helptf.route('/debug')
 def debug():
-    response = str(dir(g.user))
-    return response
+    return ''
