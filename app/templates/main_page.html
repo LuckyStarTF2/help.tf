@@ -28,6 +28,10 @@
         transition: transform 0.4s cubic-bezier(0, 0, 0, 1.01);
         overflow: hidden;
       }
+      #basics-card {
+        background-image: url(https://cdn.discordapp.com/attachments/872234603442749560/922841811955904572/unknown.png);
+        background-position: right;
+      }
       .card::before { 
         content:"";
         position:absolute; top:0;right:0;bottom:0;left:0;
@@ -158,7 +162,7 @@
           <h1 class="mb-4">What do you want to learn?</h1>
           <div class="row">
             <div class="col-lg-6 mb-4">
-              <div class="card card-overlay-bottom card-grid-lg card-bg-scale card-b">
+              <div class="card card-overlay-bottom card-grid-lg card-bg-scale card-b" id="basics-card">
                 <a href="{{ url_for('mentors') }}">
                   <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                     <div class="w-100 mt-auto">
