@@ -4,6 +4,7 @@ from flask import render_template, redirect, session, url_for, request, g, jsoni
 from app.forms import LoginForm, CSRFForm
 from app.models import User
 from datetime import datetime
+from html import escape
 import requests
 
 
@@ -206,11 +207,6 @@ def get_all_mentors():
     return jsonify(mentors=[e.serialize() for e in mentors.items])
 
 
-@helptf.route('/join-the-team')
-def contact():
-    return render_template('contact.html', title="help.tf - Join the Team")
-
-
 @helptf.route('/mentors')
 def mentors():
     return render_template('mentors.html')
@@ -323,15 +319,15 @@ def fill_the_profile():
             return render_template('fill-the-profile.html', form=form,
                                    errors=errors, values=values)
         else:
-            current_user.world_part = values['world_part']
+            current_user.world_part = escape(values['world_part'])
             current_user.acceptable_age_13_15 = values['acceptable_age_13_15']
             current_user.acceptable_age_15_18 = values['acceptable_age_15_18']
             current_user.acceptable_age_18_plus = values[
                 'acceptable_age_18_plus']
-            current_user.birth_year = values['birth_year']
+            current_user.birth_year = escape(values['birth_year'])
             current_user.voice_chat = values['voice_chat']
-            current_user.languages_speaking = values['languages_speaking']
-            current_user.languages_typing = values['languages_typing']
+            current_user.languages_speaking = escape(values['languages_speaking'])
+            current_user.languages_typing = escape(values['languages_typing'])
             current_user.scout = values['scout']
             current_user.soldier = values['soldier']
             current_user.pyro = values['pyro']
@@ -341,16 +337,16 @@ def fill_the_profile():
             current_user.medic = values['medic']
             current_user.sniper = values['sniper']
             current_user.spy = values['spy']
-            current_user.discord = values['discord']
-            current_user.about_me = values['about_me']
+            current_user.discord = escape(values['discord'])
+            current_user.about_me = escape(values['about_me'])
             current_user.is_mentor = True
             db.session.commit()
-            helptf.logger.info('User {} ({}) just filled their profile to become a mentor'.format(current_user.steamid, current_user.nickname))
+            helptf.logger.info('User {} ({}) just filled their profile to become a mentor'.format(current_user.steamid, escape(current_user.nickname)))
             return redirect(url_for('thanks_for_applying'))
     elif request.form:
-        helptf.logger.error('CSRF error while filling mentor\'s profile for user {} ({})'.format(current_user.steamid, current_user.nickname))
+        helptf.logger.error('CSRF error while filling mentor\'s profile for user {} ({})'.format(current_user.steamid, escape(current_user.nickname)))
     return render_template('fill-the-profile.html', form=form, values=values,
-                           title="help.tf - Mentor's Profile")
+                           title="help.tf - Your Profile")
 
     # current_user.last_seen = datetime.fromtimestamp(u['last_seen'])
     # current_user.steam_account_created_date = datetime.fromtimestamp(u['steam_account_created_date'])
@@ -367,3 +363,14 @@ def thanks_for_applying():
 @helptf.route('/debug')
 def debug():
     return ''
+
+
+@helptf.route('/join-the-team')
+def contact():
+    return render_template('contact.html', title="help.tf - Join the Team")
+
+
+@helptf.route('/logger-test')
+def logger_test():
+    helptf.logger.info('AAAAAAAAAAAAAAAAAAAAAAAAAA DEBUG LOGGER ENTRY')
+    return 'ok'
