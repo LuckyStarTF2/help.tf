@@ -428,17 +428,18 @@
 
         // querying mentors
         fetch('{{ url_for("get_all_mentors") }}')
-          .then(response => response.json())
-          .then(mentors => window.mentors = mentors.mentors)
-          .then(function() {
-            window.ml = new MentorsList(window.mentors);
-            window.ml.renderMore();
+          .then(function(response) {
+            response.json() 
+            .then(function(responseJSON) {
+                window.ml = new MentorsList(responseJSON.mentors);
+                window.ml.renderMore();
+            })
           });
 
 
         function MentorsList(list) {
             _list = list;
-            _ITEMS_PER_PAGE = 3; // tweak it later plz
+            _ITEMS_PER_PAGE = 8;
             _renderedPages = 0;
             _allRendered = 0;
 

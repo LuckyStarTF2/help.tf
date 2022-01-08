@@ -92,8 +92,9 @@ class User(db.Model):
     def serialize(self):
         return {
             # 'id': self.id,
-            'steamid': self.steamid,
-            # 'created_ts': self.created_ts,
+            'steamid': str(self.steamid),  # 17-digits number is above
+            # JavaScript's capacity for integer so steamid should be
+            # converted to string
             'is_mentor': self.is_mentor,
             'nickname': self.nickname,
             'avatar32': self.avatar32,
