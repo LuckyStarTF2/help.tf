@@ -9,15 +9,20 @@
       .toast-body {
         border-radius: 0.2rem;
       }
+      .btn-group > .btn {
+        background-color: #fff;
+        box-shadow: none !important;
+      }
+      .btn-check:not(:checked)+.btn-outline-primary:hover {
+        color: #0d6efd !important;
+      }
 		</style>
-
-
       <!-- Modal for age input -->
-      <div class="modal fade" id="birth-year-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="birth-year-modal" tabindex="-1" aria-labelledby="ageModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Your age is kinda weird</h5>
+              <h5 class="modal-title" id="ageModalLabel">Your age is kinda weird</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -61,7 +66,8 @@
               <div class="mb-3">
                 <h3>2. Preferrable age</h3>
                 <label class="mb-2">Which age is comfortable for you to communicate with?</label>
-                <div class="form-check mb-2 check-all">
+                <br>
+                <!-- div class="form-check mb-2 check-all">
                   <input class="form-check-input check-all" type="checkbox" value="" id="flexCheckDefault" {% if values['acceptable_age_13_15'] == False and values['acceptable_age_15_18'] == False and values['acceptable_age_18_plus'] == False %}{% else %}checked{% endif %}>
                   <label class="form-check-label" for="flexCheckDefault">
                     Any
@@ -84,9 +90,24 @@
                   <label class="form-check-label" for="18+">
                     18+
                   </label>
+                </div-->
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                  <input type="checkbox" class="btn-check" value="13-15" name="13-15" id="13-15" autocomplete="off" {% if 'acceptable_age_13_15' in values and values['acceptable_age_13_15'] == False %}{% else %}checked{% endif %}>
+                  <label class="btn btn-outline-primary" for="13-15">13-15</label>
+
+                  <input type="checkbox" class="btn-check" value="15-18" name="15-18" id="15-18" autocomplete="off" {% if 'acceptable_age_15_18' in values and values['acceptable_age_15_18'] == False %}{% else %}checked{% endif %}>
+                  <label class="btn btn-outline-primary" for="15-18">15-18</label>
+
+                  <input type="checkbox" class="btn-check" value="18+" name="18+" id="18+" autocomplete="off" {% if 'acceptable_age_18_plus' in values and values['acceptable_age_18_plus'] == False %}{% else %}checked{% endif %}>
+                  <label class="btn btn-outline-primary" for="18+">18+</label>
                 </div>
               </div>
               
+              
+
+
+
+
               <div class="mb-3">
                 <h3>3. Your year of birth</h1>
                   <label for="birth-year" class="mb-2">Students may also have age preferences.</label>
@@ -197,57 +218,57 @@
         * logic for the "Any" checkbox for ages. Toggles all other checkboxes nearby
         */
 
-        var checkAllElement = document.querySelector('.check-all > input');
-        checkAllElementSiblings = checkAllElement.parentNode.parentNode.querySelectorAll('input:not(.check-all)');
+        // var checkAllElement = document.querySelector('.check-all > input');
+        // checkAllElementSiblings = checkAllElement.parentNode.parentNode.querySelectorAll('input:not(.check-all)');
         
 
-        function checkAll() {
-          for (elem in checkAllElementSiblings) {
-            checkAllElementSiblings[elem].checked = true;
-          }
-        }
+        // function checkAll() {
+        //   for (elem in checkAllElementSiblings) {
+        //     checkAllElementSiblings[elem].checked = true;
+        //   }
+        // }
 
 
-        function uncheckAll() {
-          for (elem in checkAllElementSiblings) {
-            checkAllElementSiblings[elem].checked = false;
-          }
-        }
+        // function uncheckAll() {
+        //   for (elem in checkAllElementSiblings) {
+        //     checkAllElementSiblings[elem].checked = false;
+        //   }
+        // }
 
 
-        function checkboxesState() {
-          console.log('state')
-          var checkedCounter = 0;
-          for (elem in Object.values(checkAllElementSiblings)) {
-            if(checkAllElementSiblings[elem].checked == true) {
-              checkedCounter++;
-            }
-          }
-          if(checkedCounter == 0) {
-            checkAllElement.checked = false;
-            return 'all unchecked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
-          } else if(checkedCounter == checkAllElementSiblings.length) {
-            checkAllElement.checked = true;
-            return 'all checked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
-          } else {
-            checkAllElement.checked = false;
-            return 'some checked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
-          }
-        }
+        // function checkboxesState() {
+        //   console.log('state')
+        //   var checkedCounter = 0;
+        //   for (elem in Object.values(checkAllElementSiblings)) {
+        //     if(checkAllElementSiblings[elem].checked == true) {
+        //       checkedCounter++;
+        //     }
+        //   }
+        //   if(checkedCounter == 0) {
+        //     checkAllElement.checked = false;
+        //     return 'all unchecked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
+        //   } else if(checkedCounter == checkAllElementSiblings.length) {
+        //     checkAllElement.checked = true;
+        //     return 'all checked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
+        //   } else {
+        //     checkAllElement.checked = false;
+        //     return 'some checked (' + checkedCounter + '/' + checkAllElementSiblings.length + ')'
+        //   }
+        // }
 
-        function toggleSiblings() {
-          if(checkAllElement.checked == true) {
-            checkAll();
-          } else {
-            uncheckAll();
-          }
-        }
+        // function toggleSiblings() {
+        //   if(checkAllElement.checked == true) {
+        //     checkAll();
+        //   } else {
+        //     uncheckAll();
+        //   }
+        // }
 
 
-        for (elem in Object.values(checkAllElementSiblings)) {
-          checkAllElementSiblings[elem].addEventListener('click', checkboxesState);
-        }
-        checkAllElement.addEventListener('click', toggleSiblings);
+        // for (elem in Object.values(checkAllElementSiblings)) {
+        //   checkAllElementSiblings[elem].addEventListener('click', checkboxesState);
+        // }
+        // checkAllElement.addEventListener('click', toggleSiblings);
       </script>
 
       <script type="text/javascript">

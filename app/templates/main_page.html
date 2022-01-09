@@ -4,7 +4,7 @@
 
     <style type="text/css">
       #main-top {
-        background-image: radial-gradient( circle farthest-corner at 16.5% 28.1%, #494963 0%, #323347 90% );
+        background-image: radial-gradient( circle farthest-corner at 16.5% 28.1%, #4d4d71 0%, #323347 90% );
         color: #fff !important;
       }
       .main-page-pic {
@@ -18,6 +18,14 @@
         display: block;
         margin-top: 0;
       }
+      .ask-assistance-cta {
+        background-color: #7173c1 !important;
+        border-color: #7173c1 !important;
+      }
+      .ask-assistance-cta:hover {
+        background-color: #5659ae !important;
+        border-color: #5659ae !important;
+      }
       .card {
         border-width: 0 !important;
         background-size: cover;
@@ -29,7 +37,7 @@
         overflow: hidden;
       }
       #basics-card {
-        background-image: url(https://cdn.discordapp.com/attachments/872234603442749560/929213694158721054/unknown.png);
+        background-image: url({{ url_for('static', filename='img/basics.png')  }});
         background-position: right;
       }
       .card::before { 
@@ -131,22 +139,28 @@
                 <a class="d-inline-flex align-items-center text-decoration-none pt-3 mt-4 mb-3" href="#more" data-scroll=""><span class="btn btn-icon rounded-circle border-light flex-shrink-0 px-3"><img src="{{ url_for('static', filename='icons/arrow_downward_white_24dp.svg') }}" style="width: 24px;"></i></span><span class="ms-3 text-light fw-medium fs-5">How?</span></a>
 
                 <hr class="hr-light mt-5 mb-5">
-                <div class="row">
-                  <div class="col-sm-4 mb-4 mb-sm-0">
-                    <!-- Number of mentors -->
+                <div class="row d-flex">
+                  <div class="col-6 text-center">
+                    <a href="{{ url_for('become_a_mentor') }}" class="btn btn-lg btn-outline-light">Become a mentor</a>
+                  </div>
+                  <div class="col-6 text-center">
+                    <a href="{{ url_for('mentors') }}" class="btn btn-lg btn-primary ask-assistance-cta">Ask for assistance</a>
+                  </div>
+                  <!-- div class="col-sm-4 mb-4 mb-sm-0">
+                    <!- Number of mentors --
                     <div class="h1 text-light mb-1">14</div>
                     <div class="h5 text-light fw-normal opacity-70 mb-2">Active mentors</div>
                   </div>
                   <div class="col-sm-4 mb-4 mb-sm-0">
-                    <!-- number of students -->
+                    <!- number of students --
                     <div class="h1 text-light mb-1">130</div>
                     <div class="h5 text-light fw-normal opacity-70 mb-1">Happy new gamers</div>
                   </div>
                   <div class="col-sm-4">
-                    <!-- I dunno. Suggest something if you're reading this -->
+                    <!- I dunno. Suggest something if you're reading this --
                     <div class="h1 text-light mb-1">42</div>
                     <div class="h5 text-light fw-normal opacity-70 mb-1">The Answer</div>
-                  </div>
+                  </div -->
                 </div>
               </div>
             </div>

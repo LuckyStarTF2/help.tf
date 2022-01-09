@@ -154,44 +154,6 @@ def update_profile():
     return redirect(url_for('index'))
 
 
-# @helptf.route('/update_all_profiles')
-# @login_required
-# def update_all_profiles():
-#     items_per_page = 100  # steam id check limit
-#     if current_user.steamid != 76561198126840092:  # me
-#         return redirect(url_for('index'))
-#     if 'STEAM_API_KEY' not in helptf.config or \
-#             not helptf.config['STEAM_API_KEY']:
-#         return 'Error: steam api key is not defined'
-#     users_list = User.query.all()
-#     times_to_repeat = divmod(len(users_list), items_per_page)[0]
-#     for i in range(times_to_repeat + 1):
-#         list_tmp = []
-#         for j in range(items_per_page):
-#             if j + (i*items_per_page) < len(users_list):
-#                 list_tmp.append(users_list[j + (i*items_per_page)].steamid)
-#         r = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}'.format(helptf.config['STEAM_API_KEY'], ','.join(str(steamid) for steamid in list_tmp)))
-#         if r.status_code != 200:
-#             return 'Retrieving user data has failed (' + \
-#                 r.status_code + ')'
-#         print(','.join(str(steamid) for steamid in list_tmp) + ": " + str(r.status_code))
-#         response_users = r.json()['response']['players']
-#         for ru in response_users:
-#             User.query.filter_by(steamid=ru['steamid']).\
-#                 update({'nickname': ru['personaname'],
-#                         'avatar32': ru['avatar'],
-#                         'avatar64': ru['avatarmedium'],
-#                         'avatar184': ru['avatarfull'],
-#                         'profile_url': ru['profileurl'],
-#                         'last_seen': datetime.fromtimestamp(ru['lastlogoff']),
-#                         'steam_account_created_date': datetime.fromtimestamp(ru['timecreated']),
-#                         'steam_real_name': ru['realname'],
-#                         'steam_status': ru['personastate']})
-#         db.session.commit()
-#     return str(len(users_list)) + ' users were updated successfully with ' + \
-#            str(times_to_repeat + 1) + ' requests'
-
-
 @helptf.route('/u/<steamid>')
 @helptf.route('/id/<steamid>')
 def u(steamid):
@@ -222,14 +184,23 @@ def mentor_short_guide():
     return render_template('mentor-short-guide.html', title="help.tf - Start")
 
 
+# @helptf.route('/you-are-awesome')
+# # show this page if a mentor tries to become a mentor while being a mentor
+# def you_are_awesome():
+#     return render_template('mentor-short-guide.html', title="help.tf - Start")
+
+
 @helptf.route('/fill-profile', methods=['GET', 'POST'])
 @login_required
 def fill_the_profile():
+    # if current_user.is_mentor:
+    #     return redirect(url_for('you_are_awesome'))
+    # else:
     form = CSRFForm()
     values = {}
     errors = []
     if request.form and form.validate_on_submit():
-        # print(str(request.form))
+        print(str(request.form))
         if "world-part" in request.form and request.form['world-part'] in \
                 ('NA', 'EU', 'ASIA', 'SA'):
             values['world_part'] = request.form['world-part']
@@ -311,7 +282,7 @@ def fill_the_profile():
         if "about-me" in request.form and request.form['about-me'] != '':
             values['about_me'] = request.form['about-me']
         else:
-            values['about_me'] = False
+            values['about_me'] = ''
             # ########
         if len(errors) > 0:
             # print(errors)
