@@ -5,7 +5,7 @@ from app.forms import LoginForm, CSRFForm
 from app.models import User
 from datetime import datetime
 from html import escape
-import requests
+import requests, time
 
 
 @helptf.cli.command("update-all-profiles")
@@ -39,6 +39,7 @@ def update_all_profiles():
                         'avatar184': ru['avatarfull'],
                         'profile_url': ru['profileurl'],
                         'last_seen': datetime.fromtimestamp(ru['lastlogoff']),
+                        'steam_last_online_ts': ru['lastlogoff'],
                         'steam_account_created_date': datetime.fromtimestamp(ru['timecreated']),
                         'steam_real_name': ru['realname'],
                         'steam_status': ru['personastate'],
@@ -158,7 +159,16 @@ def update_profile():
 @helptf.route('/id/<steamid>')
 def u(steamid):
     user = User.query.filter_by(steamid=steamid).first_or_404()
-    return render_template('u.html', user=user)
+    world_part_full = {
+        'EU': 'Europe',
+        'SA': 'South America',
+        'NA': 'North America',
+        'ASIA': 'Asia'
+    }.get(user.world_part, user.world_part)
+    # if user.is_mentor == 1:
+    #     return render_template('u-mentor.html', user=user)
+    # else:
+    return render_template('u.html', user=user, world_part_full=world_part_full, title="help.tf | " + user.nickname, currentYear = datetime.now().year, str=str)
 
 
 @helptf.route('/getallmentors')

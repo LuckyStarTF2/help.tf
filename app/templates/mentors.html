@@ -70,9 +70,6 @@
     .classes-container {
         max-width: 16rem !important;
     }
-    .white-space {
-        white-space: pre-line;
-    }
     .card-placeholder span.nickname, 
     .card-placeholder a.location,
     .card-placeholder span.about-me,
@@ -439,7 +436,7 @@
 
         function MentorsList(list) {
             _list = list;
-            _ITEMS_PER_PAGE = 8;
+            _ITEMS_PER_PAGE = 7;
             _renderedPages = 0;
             _allRendered = 0;
 
@@ -453,7 +450,7 @@
             }
 
             this.sort = function() {
-                return this.list;
+                return _list;
             };
 
             this.renderMore = function() {
@@ -472,6 +469,7 @@
                         _allRendered = 1;
                         showMoreButton.classList.add('collapse');
                         this.onRenderedAll();
+                        return;
                     } else {
                         addMentor(_list[i]);
                     }
@@ -541,6 +539,10 @@
                 if(mentor.scout || mentor.soldier || mentor.pyro || mentor.demoman || mentor.heavy || mentor.engineer || mentor.medic || mentor.sniper || mentor.spy) {
                     mentor.classes_specified = 1;
                 }
+
+                var steamLastOnline = new Date(mentor.steam_last_online_ts * 1000);
+                var lastOnlineText = moment(steamLastOnline).fromNow();
+
                 return `
                 <div class="card card-custom gutter-b my-3" onclick="document.location.href='/u/${mentor.steamid}'">
                     <div class="card-body mx-2">
@@ -637,7 +639,7 @@
                                     </svg>
                                 </span>
                                 <div class="d-flex flex-column text-dark-75">
-                                    <span class="fw-bolder profile-property-heading">Preferrable ages</span>
+                                    <span class="fw-bolder profile-property-heading">Preferable ages</span>
                                     <span class="fw-normal profile-property-description">
                                         ${acceptableAgesText}
                                     </span>
@@ -651,10 +653,11 @@
                                     </svg>
                                 </span>
                                 <div class="d-flex flex-column text-dark-75">
-                                    <span class="fw-bolder profile-property-heading">Last Online</span>
-                                    <span class="fw-normal profile-property-description">
-                                        ${ mentor.last_seen ? moment(mentor.last_seen).fromNow() : 'Unknown' }
-                                    </span>
+
+                                ${ mentor.steam_status > 0 ? '<span class="fw-bolder profile-property-heading">Online</span>' : '<span class="fw-bolder profile-property-heading">Last Online</span>' + 
+                                    '<span class="fw-normal profile-property-description">' + 
+                                    (mentor.steam_last_online_ts != null ? lastOnlineText : 'Unknown') + 
+                                    '</span>' }
                                 </div>
                             </div>
 

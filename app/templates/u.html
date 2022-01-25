@@ -1,9 +1,409 @@
+{% extends "base.html" %}
+{% set theme = "light" %}
+
 {% block content %}
-    
-    <img src="{{ user.avatar184 }}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/moment.js') }}"></script>
+<style type="text/css">
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+    #discord, #discord2 {
+        color: #202020;
+        cursor: pointer;
+        max-width: 30rem;
+    }
+    #discord > input, #discord2 > input {
+        cursor: pointer;
+    }
+    .avatar-profile {
+        height: 10.5rem;
+        width: 10.5rem;
+        margin-top: -6.5rem;
+    }
+    .avatar img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        box-shadow: 0 0 20px -10px #000;
+    }
+    .card-main > .card-body {
+        /* padding-top: 4rem; */
+    }
+    .content {
+        padding-top: 12rem;
+    }
+    .text-grey {
+        color: #9da9bb;
+    }
+    .badge.fw-500 {
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+    .classes-tags {
+        padding-top: 0.4rem;
+        margin-bottom: 0.3rem;
+    }
+    .min-vh-25 {
+        min-height: 25vh !important;
+    }
+    .svg-age {
+        margin-left: -0.1rem;
+    }
+    .svg-age-acceptable {
+        margin-left: 0.1rem;
+    }
+    .class-circle {
+        height: 74px;
+        width: 74px;
+        background-color: #79e6fc;
+        border-radius: 50%;
+        transition: box-shadow 0.3s ease;
+    }
+    .class-circle.pyro > img {
+        border-radius: 0 0 50% 0;
+    }
+    .class-circle > img {
+        margin-left: -5px;
+        border-radius: 0 0 50% 50%;
+        margin-top: -10px;
+    }
+    .class-circle:hover {
+        box-shadow: 0 0 11px 0px #767676;
+    }
+    .steam-icon-container > svg {
+        border-radius: 50%;
+        transition: box-shadow 0.15s ease;
+    }
+    .steam-icon-container:hover > svg {
+        box-shadow: 0 0 5px 0px #9e9da0;
+    }
+    .steam-icon-container.green {
+        color: #2cb62c;
+    }
+    .steam-icon-container.grey {
+        color: #6c6c6c;
+    }
+    .steam-modal-link {
+        height: 3.1rem;
+    }
+</style>
+
+      <!-- Modal for Connect CTA -->
+      <div class="modal fade" id="connect-with-user" tabindex="-1" aria-labelledby="connectWithUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="connectWithUserLabel">How to connect with mentors</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>There are too many friend requests from spammers on Steam so your request can be missed if you just add someone on Steam. <span class="fw-bold">Better use Discord.</span></p>
+              <p>Copy this Discord username and paste it in the search field on Discord:</p>
+                        <div class="input-group discord-wrapper" id="discord2">
+                          <span class="input-group-text">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+                                  <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
+                                </svg>
+                          </span>
+                          <input type="text" class="form-control" value="{{ user.discord }} (Click to copy)" placeholder="{{ user.discord }}" aria-label="Username" aria-describedby="discord" disabled>
+                        </div>
+                        <br>
+            </div>
+            <div class="modal-footer justify-content-start">
+                <p class="mb-3">If you still prefer Steam, add the comment on the profile with a few words about who you are and then send a friend request.</p>
+                <a href="https://steamcommunity.com/profiles/{{ user.steamid }}" type="button" target="_blank" class="btn btn-outline-dark btn-lg steam-modal-link mb-2"><img src="{{ user.avatar32 }}" class="pe-3">{{ user.nickname }}'s Steam Profile
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right align-text-top" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                      <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                    </svg>
+
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="container">
+    <div class="content">
+        <div class="card card-main mb-3">
+            <div class="card-body">
+                <div class="avatar avatar-profile">
+                    <img src="{{ user.avatar184 }}">
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 pt-5">
+                        <h4 class="mb-1">{{ user.nickname }}
+                            <a href="https://steamcommunity.com/profiles/{{ user.steamid }}">
+                                <span class="steam-icon-container ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="" id="steam-tooltip">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-steam" viewBox="0 0 16 16">
+                                      <path d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z"/>
+                                      <path d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z"/>
+                                    </svg>
+                                </span>
+                            </a>
+                        </h4>
+                        <h5 class="fs-0 fw-normal">{{ user.steam_real_name }}</h5>
+                        <p class="text-grey">{{ world_part_full }}</p>
+                        <h5>Discord:</h5>
+                        <div class="input-group mb-3 discord-wrapper" id="discord">
+                          <span class="input-group-text">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+                                  <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
+                                </svg>
+                          </span>
+                          <input type="text" class="form-control" value="{{ user.discord }} (Click to copy)" placeholder="{{ user.discord }}" aria-label="Username" aria-describedby="discord" disabled>
+                        </div>
+
+
+                        <!-- Languages block -->
+                        {% if user.voice_chat == 0 %}
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-circle me-2" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>
+                            Available for text communication only. Speaks {{ user.languages_typing }}.
+                        </p>
+
+                        {% elif user.languages_speaking == user.languages_typing %}
+                            <p> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1fae17" class="bi bi-check-circle me-2" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            Available for voice and text chat in {{ user.languages_speaking }}</p>
+                        {% else %}
+                            <p> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1fae17" class="bi bi-check-circle me-2" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            Available for voice chat in {{ user.languages_speaking }} and messaging in {{ user.languages_typing }}</p>
+                        {%endif %}
+                        <!-- End languages block -->
+
+                        {% if user.birth_year >= 1940 %}
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person me-1 svg-age" viewBox="0 0 16 16">
+                              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            </svg>
+                        Age: {{ currentYear - user.birth_year }}</p>
+
+
+
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-check me-1 svg-age-acceptable" viewBox="0 0 16 16">
+                              <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                              <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                            Preferable ages: <span id="preferable-ages"></span>
+                            <script type="text/javascript">
+                                var mentor = {
+                                    acceptable_age_13_15: {{ str(user.acceptable_age_13_15).lower() }},
+                                    acceptable_age_15_18: {{ str(user.acceptable_age_15_18).lower() }},
+                                    acceptable_age_18_plus: {{ str(user.acceptable_age_18_plus).lower() }}
+                                }
+                                var acceptableAgesNumber = (mentor.acceptable_age_13_15 ? '1' : '0') + (mentor.acceptable_age_15_18 ? '1' : '0') + (mentor.acceptable_age_18_plus ? '1' : '0');
+                                var acceptableAgesText = '';
+                                switch (acceptableAgesNumber) {
+                                    case '000':
+                                    acceptableAgesText = 'Any'
+                                    break;
+                                    case '001':
+                                    acceptableAgesText = '18+'
+                                    break;
+                                    case '010':
+                                    acceptableAgesText = '15-18 years'
+                                    break;
+                                    case '011':
+                                    acceptableAgesText = '15+'
+                                    break;
+                                    case '100':
+                                    acceptableAgesText = '13-15 years'
+                                    break;
+                                    case '101':
+                                    acceptableAgesText = '13-15 or 18+'
+                                    break;
+                                    case '110':
+                                    acceptableAgesText = 'Under 18'
+                                    break;
+                                    case '111':
+                                    acceptableAgesText = 'Any'
+                                    break;
+                                }
+                                document.getElementById('preferable-ages').innerText = acceptableAgesText;
+                            </script>
+                        </p>
+                        {% endif %}
+
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#connect-with-user">
+                          Connect
+                        </button>
+
+                    </div>
+                    {% if user.scout == 1 or user.soldier == 1 or user.pyro == 1 or user.demoman == 1 or user.heavy == 1 or user.engineer == 1 or user.medic == 1 or user.sniper == 1 or user.spy == 1 %}
+                    <div class="col ps-2 ps-lg-3 pt-5">
+                        <h5>Classes</h5>
+                        <div class="classes-container container">
+                            <div class="row row-cols-3">
+                                {% if user.scout == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Scout">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Scout.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.soldier == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Soldier">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Soldier.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.pyro == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Pyro">
+                                    <div class="class-circle col-4 pyro">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Pyro.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.demoman == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Demoman">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Demoman.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.heavy == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Heavy">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Heavy.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.engineer == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Engineer">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Engineer.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.medic == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Medic">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Medic.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.sniper == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Sniper">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Sniper.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.spy == 1 %}
+                                <div class="col class-icon-container pt-4 ps-0" title="Spy">
+                                    <div class="class-circle col-4">
+                                        <img src="{{ url_for('static', filename='classes/84px-Main_Spy.png') }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>About me</h5>
+                {% if true %}
+                    <p class="white-space">{{ user.about_me }}</p>
+                {% else %}
+                    <p class="white-space">The user has nothing to say...</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Comments</h5>
+                    <p class="white-space">(Coming Soon)</p>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+
+    <!--img src="{{ user.avatar184 }}">
     <p>user.nickname: {{ user.nickname }} </p>
     <p><a href="{{ user.profile_url }}">Steam</a> (<a href="steam://friends/add/{{ user.steamid }}">Add friend</a>) </p>
     <p>Steam last online: {{ user.last_seen }} </p>
     <p>On help.tf since: {{ user.created_ts }} </p>
-    <p>Steam status: {{ user.steam_status }} </p>
+
+                        <div>dsdfsdf<br>dsdfsdf<br>dsdfsdf<br>dsdfsdf<br>dsdfsdf<br>dsdfsdf<br></div>
+                        <p>Steam last online: {{ user.last_seen }} </p>
+                        <p>mentor.last_seen ? moment(mentor.last_seen).fromNow() : 'Unknown'</p>
+
+                        <p>Steam last online: {{ user.last_seen }} </p>
+                        <p>On help.tf since: {{ user.created_ts }}</p>
+
+
+    <p>Steam status: {{ user.steam_status }} </p-->
+
+<script type="text/javascript">
+     {% if user.last_seen %}
+        var steamTooltip = document.getElementById('steam-tooltip');
+        var steamLastOnline = new Date({{ user.steam_last_online_ts }} * 1000);
+        steamTooltip.title = 'Steam last online: ' + moment(steamLastOnline).fromNow();
+        if({{ user.steam_status }} > 0) {
+            steamTooltip.classList.add('green');
+            steamTooltip.title = 'Online on Steam';
+        } else if((Date.now() - new Date(steamLastOnline)) /1000 /60 /60 >= 24) {
+            steamTooltip.classList.add('grey');
+        }
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+    {% endif %}
+
+    var discordClickable = document.getElementById('discord');
+    discordClickable.addEventListener('click', function() {
+        navigator.clipboard.writeText('{{ user.discord }}')
+          .then(() => {
+            discordClickable.childNodes[3].value = discordClickable.childNodes[3].value.replace('(Click to copy)', '(Copied!)');
+            setTimeout(function(){
+                discordClickable.childNodes[3].value = discordClickable.childNodes[3].value.replace('(Copied!)', '(Click to copy)');
+            }, 3000)
+          })
+          .catch(err => {
+            console.log('Something went wrong', err);
+          });
+    });
+
+    var discordClickable2 = document.getElementById('discord2');
+    discordClickable2.addEventListener('click', function() {
+        navigator.clipboard.writeText('{{ user.discord }}')
+          .then(() => {
+            discordClickable2.childNodes[3].value = discordClickable2.childNodes[3].value.replace('(Click to copy)', '(Copied!)');
+            setTimeout(function(){
+                discordClickable2.childNodes[3].value = discordClickable2.childNodes[3].value.replace('(Copied!)', '(Click to copy)');
+            }, 3000)
+          })
+          .catch(err => {
+            console.log('Something went wrong', err);
+          });
+    });
+</script>
+
+
 {% endblock %}

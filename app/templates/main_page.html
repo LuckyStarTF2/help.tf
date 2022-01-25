@@ -4,7 +4,8 @@
 
     <style type="text/css">
       #main-top {
-        background-image: radial-gradient( circle farthest-corner at 16.5% 28.1%, #4d4d71 0%, #323347 90% );
+        /* background-image: radial-gradient( circle farthest-corner at 16.5% 28.1%, #4d4d71 0%, #323347 90% ); */
+        background-image: radial-gradient( circle farthest-corner at 16.5% 28.1%, #565677 0%, #3c3e62 90% );
         color: #fff !important;
       }
       .main-page-pic {
@@ -40,6 +41,14 @@
         background-image: url({{ url_for('static', filename='img/basics.png')  }});
         background-position: right;
       }
+      #airblasting-card {
+        background-image: url({{ url_for('static', filename='img/airblasting.png') }});
+        background-position: right;
+      }
+      #trickstabbing-card {
+        background-image: url({{ url_for('static', filename='img/trickstabbing.png') }});
+        background-position: right;
+      }
       .card::before { 
         content:"";
         position:absolute; top:0;right:0;bottom:0;left:0;
@@ -56,7 +65,7 @@
         height: 11.75rem;
       }
       .card-img-overlay {
-        background-image: linear-gradient(180deg, transparent, #030303);
+        background-image: linear-gradient(180deg, transparent, #030303d1);
         border-radius: 0.75rem !important;
       }
       .w-100.mt-auto {
@@ -205,7 +214,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="airblasting-card">
                     <a href="{{ url_for('mentors') }}">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Airblasting</h3></div>
@@ -221,7 +230,7 @@
             <div class="col-lg-6 mb-4">
               <div class="row g-4">
                 <div class="col-md-6">
-                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="trickstabbing-card">
                     <a href="{{ url_for('mentors') }}">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Trickstabbing</h3></div>

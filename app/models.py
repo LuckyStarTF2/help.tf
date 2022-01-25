@@ -17,6 +17,7 @@ class User(db.Model):
     avatar184 = db.Column(db.String(128))  # avatarfull
     profile_url = db.Column(db.String(128))  # profileurl
     last_seen = db.Column(db.DateTime)  # lastlogoff
+    steam_last_online_ts = db.Column(db.BigInteger)
     steam_account_created_date = db.Column(db.DateTime)  # timecreated
     steam_real_name = db.Column(db.String(128))  # realname
     steam_status = db.Column(db.Integer)  # personastate
@@ -81,6 +82,8 @@ class User(db.Model):
             u['profile_url'] = r.json()['response']['players'][0]['profileurl']
         if r.json()['response']['players'][0].get('lastlogoff'):
             u['last_seen'] = r.json()['response']['players'][0]['lastlogoff']
+        if r.json()['response']['players'][0].get('lastlogoff'):
+            u['steam_last_online_ts'] = r.json()['response']['players'][0]['lastlogoff']
         if r.json()['response']['players'][0].get('timecreated'):
             u['steam_account_created_date'] = r.json()['response']['players'][0]['timecreated']
         if r.json()['response']['players'][0].get('realname'):
@@ -102,6 +105,7 @@ class User(db.Model):
             'avatar184': self.avatar184,
             'profile_url': self.profile_url,
             'last_seen': self.last_seen,
+            'steam_last_online_ts': self.steam_last_online_ts,
             'steam_account_created_date': self.steam_account_created_date,
             'steam_real_name': self.steam_real_name,
             'steam_status': self.steam_status,
