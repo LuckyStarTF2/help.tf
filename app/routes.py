@@ -1,4 +1,5 @@
 from app import helptf, db, lm, oid
+import os
 from flask_login import login_user, logout_user, current_user, login_required
 from flask import render_template, redirect, session, url_for, request, g, jsonify
 from app.forms import LoginForm, CSRFForm
@@ -65,7 +66,7 @@ def unauthorized_callback():
 
 @helptf.before_request
 def before_request():
-    if 'HEROKU' in helptf.config and not request.is_secure:
+    if os.environ.get('HEROKU') and not request.is_secure:
         url = request.url.replace('http://', 'https://', 1)
         code = 301
         return redirect(url, code=code)
