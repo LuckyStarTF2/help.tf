@@ -65,6 +65,10 @@ def unauthorized_callback():
 
 @helptf.before_request
 def before_request():
+    if 'HEROKU' in helptf.config and not request.is_secure:
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
     g.user = current_user
 
 
