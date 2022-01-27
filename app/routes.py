@@ -41,7 +41,9 @@ def update_all_profiles():
                         'last_seen': datetime.fromtimestamp(ru['lastlogoff']),
                         'steam_last_online_ts': ru['lastlogoff'],
                         'steam_account_created_date': datetime.fromtimestamp(ru['timecreated']),
-                        'steam_last_online_calculated': datetime.now() if ru['personastate'] == 1 else ru['lastlogoff'],
+                        'steam_last_online_calculated': datetime.now() if \
+                            ru['personastate'] == 1 else \
+                            datetime.fromtimestamp(ru['lastlogoff']),
                         'steam_real_name': ru['realname'],
                         'steam_status': ru['personastate'],
                         'updated_datetime': datetime.now()})
@@ -177,7 +179,6 @@ def get_all_mentors():
     page = request.args.get('page', 1, type=int)
     mentors = User.query.filter_by(is_mentor=1).order_by(User.steam_last_online_calculated.desc(), User.created_ts.desc())\
        .paginate(1, 100, False)
-    print(type(mentors))
     return jsonify(mentors=[e.serialize() for e in mentors.items])
 #     mentors = User.query.filter_by(is_mentor=1).order_by(User.is_mentor)\
 #     .paginate(page, helptf.config['JSON_MENTORS_PER_REQUEST'], False)
