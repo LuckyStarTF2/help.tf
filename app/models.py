@@ -21,6 +21,7 @@ class User(db.Model):
     steam_account_created_date = db.Column(db.DateTime)  # timecreated
     steam_real_name = db.Column(db.String(128))  # realname
     steam_status = db.Column(db.Integer)  # personastate
+    steam_last_online_calculated = db.Column(db.DateTime)
     # ############### Mentor Profile ########################## #
     world_part = db.Column(db.String(10))
     acceptable_age_13_15 = db.Column(db.Boolean)
