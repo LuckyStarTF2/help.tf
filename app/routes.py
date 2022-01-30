@@ -240,6 +240,8 @@ def fill_the_profile():
             values['acceptable_age_18_plus'] = True
         else:
             values['acceptable_age_18_plus'] = False
+        if "competitive" in request.form:
+            values['competitive'] = True
         if "birth-year" in request.form \
                 and request.form['birth-year'].isnumeric():
             values['birth_year'] = request.form['birth-year']
@@ -330,6 +332,7 @@ def fill_the_profile():
             current_user.medic = values['medic']
             current_user.sniper = values['sniper']
             current_user.spy = values['spy']
+            current_user.competitive = values['competitive']
             current_user.discord = escape(values['discord'])
             current_user.about_me = escape(values['about_me'])
             current_user.is_mentor = True

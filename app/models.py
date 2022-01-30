@@ -44,6 +44,7 @@ class User(db.Model):
     about_me = db.Column(db.String(4096))
     active_coach = db.Column(db.Boolean)
     approved = db.Column(db.Boolean)
+    competitive = db.Column(db.Boolean)
     updated_datetime = db.Column(db.DateTime)
 
     @property
@@ -130,6 +131,7 @@ class User(db.Model):
             'discord': self.discord,
             'about_me': self.about_me,
             'active_coach': self.active_coach,
+            'competitive': self.competitive
         }
 
     def __repr__(self):

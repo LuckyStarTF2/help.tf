@@ -193,7 +193,17 @@
               </div>
 
               <div class="mb-3">
-                <h3>7. Your discord username</h3>
+                <h3>7. Competitive experience</h3>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="competitive" id="competitive" name="competitive" {% if 'competitive' in values and values['competitive'] == True %}checked{% endif %}>
+                  <label class="form-check-label" for="competitive">
+                    I can help with competitive questions
+                  </label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <h3>8. Your discord username</h3>
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">@</span>
                   <input type="text" class="form-control" placeholder="discord#0001" aria-label="discord" aria-describedby="basic-addon1" name="discord" {% if 'discord' in values %}value="{{ values['discord'] }}"{% endif %}>
@@ -201,7 +211,7 @@
               </div>
 
               <div class="mb-3">
-                <h3>8. A few words about yourself</h3>
+                <h3>9. A few words about yourself</h3>
                 <label class="mb-2">For example, what things you can teach or who you are as a person.</label>
                 <textarea class="form-control" rows="3" name="about-me" {% if 'about_me' in values %}value="{{ values['about_me'] }}"{% endif %}></textarea>
               </div>

@@ -111,20 +111,26 @@
     .card-placeholder-3 {
         opacity: 0.2;
     }
-    .mentors-filters > span {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    .mentors-filters:hover > span {
-        opacity: 1;
-    }
 </style>
 
 <main>
     
     <div class="d-flex flex-column-fluid" id="mentors-list-wrapper">
         <div class="container mt-5 pt-5">
-            <div class="mentors-filters">Filters... <span>Later</span></div>
+
+            <p>
+              <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapsible-filters" aria-expanded="false" aria-controls="collapsible-filters">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter me-2" viewBox="0 0 16 16">
+                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+                Filters...
+              </button>
+            </p>
+            <div class="collapse" id="collapsible-filters">
+              <div class="card card-body">
+                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+              </div>
+            </div>
             <div id="mentors-inner-container">
 
                 <div class="card card-custom card-placeholder card-placeholder-1 gutter-b my-3" id="placeholder-1">
@@ -580,7 +586,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center flex-wrap justify-content-between">
-                                    <div class="flex-grow-1 fw-normal about-me py-2 py-lg-2 me-5 white-space">${mentor.about_me}
+                                    <div class="flex-grow-1 fw-normal about-me py-2 py-lg-2 me-5 white-space text-break">${mentor.about_me}
                                     </div>
                                 </div>
                             </div>
@@ -588,7 +594,7 @@
                         <div class="separator separator-solid my-5"></div>
                         <!-- bottom card part -->
                         <div class="d-flex align-items-center flex-wrap">
-                            <div class="d-flex align-items-center flex-lg-fill me-4 my-2">
+                            <div class="d-flex me-4 mb-4">
                                 ${ mentor.classes_specified ? '<span class="me-3 profile-card-icon">' + 
                                     '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50" fill="currentColor"><path d="M 25 2 C 14.484046 2 5.6066628 9.0692485 2.8730469 18.722656 A 1.0001 1.0001 0 0 0 3.6972656 19.986328 L 17.941406 21.988281 A 1.0001 1.0001 0 0 0 18.945312 21.5 C 19.882402 19.883937 21.444947 18.680369 23.302734 18.216797 A 1.0001 1.0001 0 0 0 24.050781 17.386719 L 26.052734 3.140625 A 1.0001 1.0001 0 0 0 25.0625 2.0019531 C 25.104992 2.0019531 25.084492 2 25 2 z M 30.980469 2.8359375 A 1.0001 1.0001 0 0 0 30.013672 3.6972656 L 28.011719 17.941406 A 1.0001 1.0001 0 0 0 28.5 18.945312 C 30.116063 19.882402 31.319631 21.444947 31.783203 23.302734 A 1.0001 1.0001 0 0 0 32.613281 24.050781 L 46.859375 26.052734 A 1.0001 1.0001 0 0 0 47.998047 25.0625 C 47.998047 25.104992 48 25.084492 48 25 C 48 14.484046 40.930752 5.6066628 31.277344 2.8730469 A 1.0001 1.0001 0 0 0 30.980469 2.8359375 z M 23.900391 4.0917969 L 22.140625 16.601562 C 20.317617 17.22615 18.791241 18.384746 17.708984 19.935547 L 5.2050781 18.179688 C 7.9276753 10.281709 15.18145 4.5483861 23.900391 4.0917969 z M 31.820312 5.2050781 C 39.718292 7.9276753 45.451614 15.18145 45.908203 23.900391 L 33.398438 22.140625 C 32.77385 20.317617 31.615254 18.791241 30.064453 17.708984 L 31.820312 5.2050781 z M 3.0410156 23.9375 A 1.0001 1.0001 0 0 0 2.9414062 23.939453 A 1.0001 1.0001 0 0 0 2.0019531 24.9375 C 2.0019531 24.895008 2 24.915508 2 25 C 2 35.515954 9.0692485 44.393337 18.722656 47.126953 A 1.0001 1.0001 0 0 0 19.986328 46.302734 L 21.988281 32.058594 A 1.0001 1.0001 0 0 0 21.5 31.054688 C 19.883937 30.117598 18.680369 28.555053 18.216797 26.697266 A 1.0001 1.0001 0 0 0 17.386719 25.949219 L 3.140625 23.947266 A 1.0001 1.0001 0 0 0 3.0410156 23.9375 z M 4.0917969 26.099609 L 16.601562 27.859375 C 17.22615 29.682383 18.384746 31.208759 19.935547 32.291016 L 18.179688 44.794922 C 10.281709 42.072325 4.5483861 34.81855 4.0917969 26.099609 z M 31.958984 28.001953 A 1.0001 1.0001 0 0 0 31.054688 28.5 C 30.118803 30.115492 28.555124 31.319613 26.697266 31.783203 A 1.0001 1.0001 0 0 0 25.949219 32.613281 L 23.947266 46.859375 A 1.0001 1.0001 0 0 0 24.9375 47.998047 C 24.89501 47.998047 24.91551 48 25 48 C 35.51602 48 44.393323 40.929756 47.126953 31.277344 A 1.0001 1.0001 0 0 0 46.302734 30.013672 L 32.058594 28.011719 A 1.0001 1.0001 0 0 0 31.958984 28.001953 z M 32.291016 30.064453 L 44.794922 31.820312 C 42.07233 39.717523 34.8185 45.451544 26.099609 45.908203 L 27.859375 33.398438 C 29.682489 32.773887 31.209104 31.615586 32.291016 30.064453 z"></path></svg></span>' +
                                 '<div class="d-flex flex-column text-dark-75 classes-container">' + 
@@ -604,7 +610,7 @@
                                         ${ mentor.sniper ? '<span class="badge bg-info fw-bolder text-dark classes-tags">Sniper</span>' : ''}
                                         ${ mentor.spy ? '<span class="badge bg-info fw-bolder text-dark classes-tags">Spy</span>' : ''}
                                     ${ mentor.classes_specified ? '</span></div></div>' : '' }
-                            <div class="d-flex align-items-center flex-lg-fill me-4 my-2">
+                            <div class="d-flex me-4 mb-4">
                                         ${ mentor.languages_speaking && mentor.voice_chat ?
                                 '<span class="me-3 profile-card-icon">' + 
                                     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">' + 
@@ -616,7 +622,7 @@
                                                 '<span class="fw-normal profile-property-description">' + 
                                                 mentor.languages_speaking + '</span></div></div>' : ''
                                         }
-                            <div class="d-flex align-items-center flex-lg-fill me-4 my-2">
+                            <div class="d-flex me-4 mb-4">
                                 <span class="me-3 profile-card-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-right-text" viewBox="0 0 16 16">
                                       <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
@@ -630,8 +636,8 @@
                                     </span>
                                 </div>
                             </div>
-                            ${ mentor.birth_year >= 1940 ? '<div class="d-flex align-items-center flex-lg-fill me-4 my-2"><span class="me-3 profile-card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg></span><div class="d-flex flex-column text-dark-75"><span class="fw-bolder profile-property-heading">Age</span><span class="fw-normal profile-property-description">' + mentor.age + '</span></div></div>' : '' }
-                            <div class="d-flex align-items-center flex-lg-fill me-4 my-2">
+                            ${ mentor.birth_year >= 1940 ? '<div class="d-flex me-4 mb-4"><span class="me-3 profile-card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg></span><div class="d-flex flex-column text-dark-75"><span class="fw-bolder profile-property-heading">Age</span><span class="fw-normal profile-property-description">' + mentor.age + '</span></div></div>' : '' }
+                            <div class="d-flex me-4 mb-4">
                                 <span class="me-3 profile-card-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
                                       <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -645,7 +651,18 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center flex-lg-fill me-4 my-2">
+                            ${ mentor.competitive ? '<div class="d-flex me-4 mb-4">' + 
+                                '<span class="me-2 profile-card-icon">' + 
+                                    '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#404044" class="bi bi-stars" viewBox="0 0 16 16">' +
+                                      '<path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/>' + 
+                                    '</svg>' +
+                                '</span>' +
+                                '<div class="d-flex flex-column text-dark-75">' + 
+                                    '<span class="fw-bolder profile-property-heading">Competitive Player</span>' +
+                                '</div>' +
+                            '</div>' : '' }
+
+                            <div class="d-flex me-4 mb-4">
                                 <span class="me-3 profile-card-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#404044" class="bi bi-steam" viewBox="0 0 16 16">
                                       <path d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z"/>
@@ -662,7 +679,7 @@
                             </div>
 
 
-                            <!--div class="d-flex align-items-center flex-lg-fill mr-5 my-2">
+                            <!--div class="d-flex mr-5 mb-4">
                                 <span class="me-3 profile-card-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
                                       <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
