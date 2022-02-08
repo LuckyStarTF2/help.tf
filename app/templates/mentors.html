@@ -111,13 +111,20 @@
     .card-placeholder-3 {
         opacity: 0.2;
     }
+      .btn-check:not(:checked)+.btn-outline-primary:hover {
+        color: #0d6efd !important;
+      }
+      .btn-group > .btn {
+        background-color: #fff;
+        box-shadow: none !important;
+      }
 </style>
 
 <main>
     
     <div class="d-flex flex-column-fluid" id="mentors-list-wrapper">
         <div class="container mt-5 pt-5">
-
+            <!-- Filters -->
             <p>
               <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapsible-filters" aria-expanded="false" aria-controls="collapsible-filters">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter me-2" viewBox="0 0 16 16">
@@ -126,11 +133,138 @@
                 Filters...
               </button>
             </p>
-            <div class="collapse" id="collapsible-filters">
+            <div class="collapse show" id="collapsible-filters">
               <div class="card card-body">
-                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <label class="fw-bolder filter-title">World part</label><br>
+                            <select class="form-select" aria-label="World Part" id="world-part" name="world-part">
+                              <option value="any">Any</option>
+                              <option value="NA">North America</option>
+                              <option value="EU">Europe</option>
+                              <option value="ASIA">Asia</option>
+                              <option value="SA">South America</option>
+                            </select>
+
+                        <label for="languages-filter" class="form-label fw-bolder filter-title mt-3">Language</label>
+                            <input class="form-control" list="languages-filter-list" id="languages-filter" placeholder="Type to search...">
+                            <datalist id="languages-filter-list">
+                              <option value="English">
+                              <option value="Spanish">
+                              <option value="Portuguese">
+                              <option value="Russian">
+                              <option value="French">
+                              <option value="German">
+                              <option value="Turkish">
+                            </datalist>
+
+
+                        <label class="fw-bolder mt-2">Age</label><br>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          <input type="checkbox" class="btn-check checkbox" value="13-15" name="13-15" id="13-15" autocomplete="off" checked>
+                          <label class="btn btn-outline-primary" for="13-15">13-15</label>
+
+                          <input type="checkbox" class="btn-check checkbox" value="15-18" name="15-18" id="15-18" autocomplete="off" checked>
+                          <label class="btn btn-outline-primary" for="15-18">15-18</label>
+
+                          <input type="checkbox" class="btn-check checkbox" value="18+" name="18+" id="18+" autocomplete="off" checked>
+                          <label class="btn btn-outline-primary" for="18+">18+</label>
+                        </div>
+
+
+                        <div class="form-check mt-3">
+                          <input class="form-check-input checkbox" type="checkbox" value="competitive" id="competitive" name="competitive">
+                          <label class="form-check-label" for="competitive">
+                            Competitive player
+                          </label>
+                        </div>
+
+                        <div class="form-check mt-3">
+                          <input class="form-check-input checkbox" type="checkbox" value="voice-calls-filter" id="voice-calls-filter" name="voice-calls-filter">
+                          <label class="form-check-label" for="voice-calls-filter">
+                            Available for voice calls
+                          </label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="fw-bolder mb-2 mt-3">Classes</div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="scout" id="scout" name="scout">
+                          <label class="form-check-label" for="scout">
+                            Scout
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="soldier" id="soldier" name="soldier">
+                          <label class="form-check-label" for="soldier">
+                            Soldier
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="pyro" id="pyro" name="pyro">
+                          <label class="form-check-label" for="pyro">
+                            Pyro
+                          </label>
+                        </div>
+
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="demoman" id="demoman" name="demoman">
+                          <label class="form-check-label" for="demoman">
+                            Demoman
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="heavy" id="heavy" name="heavy">
+                          <label class="form-check-label" for="heavy">
+                            Heavy
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="engineer" id="engineer" name="engineer">
+                          <label class="form-check-label" for="engineer">
+                            Engineer
+                          </label>
+                        </div>
+
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="medic" id="medic" name="medic">
+                          <label class="form-check-label" for="medic">
+                            Medic
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="sniper" id="sniper" name="sniper">
+                          <label class="form-check-label" for="sniper">
+                            Sniper
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input checkbox class-checkbox" type="checkbox" value="spy" id="spy" name="spy">
+                          <label class="form-check-label" for="spy">
+                            Spy
+                          </label>
+                        </div>
+                    </div>
+
+
+                </div>
+                
+                
+
               </div>
             </div>
+
+            <div class="card card-custom gutter-b my-3 py-5 ps-3 collapse" id="filters-nothing-found">
+                There are no mentors matching your filters... ¯\_(ツ)_/¯ <a href="#">Reset filters</a>
+            </div>
+
             <div id="mentors-inner-container">
 
                 <div class="card card-custom card-placeholder card-placeholder-1 gutter-b my-3" id="placeholder-1">
@@ -428,14 +562,17 @@
         var placeholder2 = document.getElementById('placeholder-2');
         var placeholder3 = document.getElementById('placeholder-3');
         var placeholdersHidden = 0;
+        var noMentorsFound = document.getElementById('filters-nothing-found');
 
         // querying mentors
         fetch('{{ url_for("get_all_mentors") }}')
           .then(function(response) {
             response.json() 
             .then(function(responseJSON) {
-                window.ml = new MentorsList(responseJSON.mentors);
+                window.mentorsJSON = responseJSON.mentors
+                window.ml = new MentorsList(window.mentorsJSON);
                 window.ml.renderMore();
+                filter.getFiltersFromURL();
             })
           });
 
@@ -447,6 +584,11 @@
             _allRendered = 0;
 
             this.numberOfMentors = _list.length;
+            if(this.numberOfMentors == 0) {
+                noMentorsFound.classList.remove('collapse');
+            } else {
+                noMentorsFound.classList.add('collapse');
+            }
 
             this.onRenderedAll = function(func) {
                 console.log('all rendered')
@@ -610,8 +752,8 @@
                                         ${ mentor.sniper ? '<span class="badge bg-info fw-bolder text-dark classes-tags">Sniper</span>' : ''}
                                         ${ mentor.spy ? '<span class="badge bg-info fw-bolder text-dark classes-tags">Spy</span>' : ''}
                                     ${ mentor.classes_specified ? '</span></div></div>' : '' }
-                            <div class="d-flex me-4 mb-4">
                                         ${ mentor.languages_speaking && mentor.voice_chat ?
+                                '<div class="d-flex me-4 mb-4">' +
                                 '<span class="me-3 profile-card-icon">' + 
                                     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">' + 
                                       '<path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>' + 
@@ -708,5 +850,336 @@
             }
         });
 
+    </script>
+
+    <!-- Filtering -->
+    <script type="text/javascript">
+        var filter = {
+            controls: {
+                worldPart: document.getElementById('world-part'),
+                languages: document.getElementById('languages-filter'),
+                age: {
+                    "13-15": document.getElementById('13-15'),
+                    "15-18": document.getElementById('15-18'),
+                    "18+": document.getElementById('18+'),
+                },
+                competitive: document.getElementById('competitive'),
+                voice: document.getElementById('voice-calls-filter'),
+                classes: {
+                    scout: document.getElementById('scout'),
+                    soldier: document.getElementById('soldier'),
+                    pyro: document.getElementById('pyro'),
+                    demoman: document.getElementById('demoman'),
+                    heavy: document.getElementById('heavy'),
+                    engineer: document.getElementById('engineer'),
+                    medic: document.getElementById('medic'),
+                    sniper: document.getElementById('sniper'),
+                    spy: document.getElementById('spy'),
+                }
+
+            },
+            filteredJSON: [],
+            defaultFilters: {
+                classes: {
+                    enabled: false,
+                    scout: false,
+                    soldier: false,
+                    pyro: false,
+                    demoman: false,
+                    heavy: false,
+                    engineer: false,
+                    medic: false,
+                    sniper: false,
+                    spy: false,
+                },
+                ages: {
+                    enabled: false,
+                    "13-15": true,
+                    "15-18": true,
+                    "18+": true,
+                },
+                competitive: false,
+                world_part: '',
+                languages: '',
+                voice_calls: false,
+            },
+            currentFilters: {
+                classes: {
+                    enabled: false,
+                    scout: false,
+                    soldier: false,
+                    pyro: false,
+                    demoman: false,
+                    heavy: false,
+                    engineer: false,
+                    medic: false,
+                    sniper: false,
+                    spy: false,
+                },
+                ages: {
+                    enabled: false,
+                    "13-15": true,
+                    "15-18": true,
+                    "18+": true,
+                },
+                competitive: false,
+                world_part: '',
+                languages: '',
+                voice_calls: false,
+            },
+            applyFilters: function() {
+                filteredJSON = [];
+                if(JSON.stringify(this.currentFilters) !== JSON.stringify(this.defaultFilters)) {
+                    console.log('filters are not defaults');
+                    filteredJSON = mentorsJSON.filter(function(item, index, array){
+                        /* Competitive */
+                        if(filter.currentFilters.competitive && item.competitive == 0) {
+                            return false;
+                        }
+
+                        /* Classes */
+                        if(filter.currentFilters.classes.enabled) { // if any class checkbox enabled, we filter out only those who don't fit into any requirements. If at least one class met, a mentor will be shown
+                            var classesMatched = 0;
+                            if(filter.currentFilters.classes.scout && item.scout == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.soldier && item.soldier == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.pyro && item.pyro == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.demoman && item.demoman == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.heavy && item.heavy == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.engineer && item.engineer == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.medic && item.medic == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.sniper && item.sniper == 1) { classesMatched ++ };
+                            if(filter.currentFilters.classes.spy && item.spy == 1) { classesMatched ++ };
+                            if(classesMatched == 0) {
+                                return false;
+                            }
+                        }
+
+                        /* Age */
+                        if(filter.currentFilters.ages.enabled) {
+                            if(item.birth_year == 0) {
+                                return false;
+                            }
+                            var mentorAge = new Date().getFullYear() - item.birth_year;
+                            var ageMatches = 0;
+                            if(filter.currentFilters.ages['13-15'] && mentorAge >= 13 && mentorAge <= 15) {ageMatches++}
+                            if(filter.currentFilters.ages['15-18'] && mentorAge >= 15 && mentorAge <= 18) {ageMatches++}
+                            if(filter.currentFilters.ages['18+'] && mentorAge >= 18) {ageMatches++}
+
+                            if(ageMatches == 0) {
+                                return false;
+                            }
+                        }
+
+                        /* Region */
+                        if(filter.currentFilters.world_part && item.world_part != filter.currentFilters.world_part) {
+                            return false;
+                        }
+
+                        /* Voice calls */
+                        if(filter.currentFilters.voice_calls && !item.voice_chat) {
+                            return false;
+                        }
+
+                        /* Languages */
+                        if(filter.currentFilters.languages) {
+                            if(filter.currentFilters.voice_calls) { // when voice calls filter is enabled, we check spoken languages, otherwise just typing
+                                if(!item.languages_speaking.toLowerCase().includes(filter.currentFilters.languages.toLowerCase())) {
+                                    return false;
+                                }
+                            } else {
+                                if(!item.languages_typing.toLowerCase().includes(filter.currentFilters.languages.toLowerCase())) {
+                                    return false;
+                                }
+                            }
+                        }
+
+                        return true;
+                    });
+                } else {
+                    console.log('filters are defaults');
+                    return mentorsJSON;
+                }
+                console.log('filter results: ', filteredJSON)
+                return filteredJSON;
+            },
+            rerenderStuff: function(){
+                ml.removeList();
+                ml = new MentorsList(filter.applyFilters());
+                ml.renderMore();
+            },
+            resetFilters: function(){
+                Object.assign(filter.currentFilters, filter.defaultFilters);
+                filter.setControlsToFilters();
+                filter.rerenderStuff();
+            },
+            setControlsToFilters: function(){
+                if(filter.currentFilters.world_part) {
+                    filter.controls.worldPart.value = filter.currentFilters.world_part;
+                } else {
+                    filter.controls.worldPart.value = 'any';
+                }
+
+                filter.controls.languages.value = filter.currentFilters.languages;
+
+                if(filter.currentFilters.ages.enabled) {
+                    filter.controls.age['13-15'].checked = filter.currentFilters.ages['13-15'].checked;
+                    filter.controls.age['15-18'].checked = filter.currentFilters.ages['15-18'].checked;
+                    filter.controls.age['18+'].checked = filter.currentFilters.ages['18+'].checked;
+                } else {
+                    filter.controls.age['13-15'].checked = true;
+                    filter.controls.age['15-18'].checked = true;
+                    filter.controls.age['18+'].checked = true;
+                }
+
+                filter.controls.competitive.checked = filter.currentFilters.competitive;
+                filter.controls.voice.checked = filter.currentFilters.voice_calls;
+
+                if(filter.currentFilters.classes.enabled) {
+                    filter.controls.classes.scout.checked = filter.currentFilters.classes.scout;
+                    filter.controls.classes.soldier.checked = filter.currentFilters.classes.soldier;
+                    filter.controls.classes.pyro.checked = filter.currentFilters.classes.pyro;
+                    filter.controls.classes.demoman.checked = filter.currentFilters.classes.demoman;
+                    filter.controls.classes.heavy.checked = filter.currentFilters.classes.heavy;
+                    filter.controls.classes.engineer.checked = filter.currentFilters.classes.engineer;
+                    filter.controls.classes.medic.checked = filter.currentFilters.classes.medic;
+                    filter.controls.classes.sniper.checked = filter.currentFilters.classes.sniper;
+                    filter.controls.classes.spy.checked = filter.currentFilters.classes.spy;
+                } else {
+                    filter.controls.classes.scout.checked = false;
+                    filter.controls.classes.soldier.checked = false;
+                    filter.controls.classes.pyro.checked = false;
+                    filter.controls.classes.demoman.checked = false;
+                    filter.controls.classes.heavy.checked = false;
+                    filter.controls.classes.engineer.checked = false;
+                    filter.controls.classes.medic.checked = false;
+                    filter.controls.classes.sniper.checked = false;
+                    filter.controls.classes.spy.checked = false;
+                }
+            },
+            getFiltersFromURL: function(){
+                var searchArr = window.location.search.substring(1).split('|');
+                searchArr.forEach(function(item){
+                    if(item == 'scout') {filter.currentFilters.classes.scout = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'soldier') {filter.currentFilters.classes.soldier = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'pyro') {filter.currentFilters.classes.pyro = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'demoman') {filter.currentFilters.classes.demoman = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'heavy') {filter.currentFilters.classes.heavy = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'engineer') {filter.currentFilters.classes.engineer = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'medic') {filter.currentFilters.classes.medic = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'sniper') {filter.currentFilters.classes.sniper = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'spy') {filter.currentFilters.classes.spy = true; filter.currentFilters.classes.enabled = true;}
+                    if(item == 'competitive') {filter.currentFilters.competitive = true;}
+                    if(item == 'voice_calls') {filter.currentFilters.voice_calls = true;}
+
+                    if(item.substr(0, 10) == 'world_part') {
+                        var worldPartFromURL = item.substr(11);
+                        if(worldPartFromURL == 'NA' || worldPartFromURL == 'SA' || worldPartFromURL == 'EU' || worldPartFromURL == 'ASIA') {
+                            filter.currentFilters.world_part = worldPartFromURL;
+                        }
+                    }
+
+                    if(item.substr(0, 9) == 'languages') {
+                        var languagesFromURL = item.substr(10);
+                        filter.currentFilters.languages = languagesFromURL;
+                    }
+                });
+
+
+
+                filter.setControlsToFilters();
+                filter.rerenderStuff();
+            },
+            putFiltersToURL: function(){
+                var filtersArr = [];
+                var filtersStr = '';
+                if(filter.currentFilters.classes.enabled) {
+                    if(filter.currentFilters.classes.scout) { filtersArr.push('scout'); }
+                    if(filter.currentFilters.classes.soldier) { filtersArr.push('soldier'); }
+                    if(filter.currentFilters.classes.pyro) { filtersArr.push('pyro'); }
+                    if(filter.currentFilters.classes.demoman) { filtersArr.push('demoman'); }
+                    if(filter.currentFilters.classes.heavy) { filtersArr.push('heavy'); }
+                    if(filter.currentFilters.classes.engineer) { filtersArr.push('engineer'); }
+                    if(filter.currentFilters.classes.medic) { filtersArr.push('medic'); }
+                    if(filter.currentFilters.classes.sniper) { filtersArr.push('sniper'); }
+                    if(filter.currentFilters.classes.spy) { filtersArr.push('spy'); }
+                }
+                if(filter.currentFilters.ages.enabled) {
+                    if(filter.currentFilters.ages['13-15']) { filtersArr.push('13-15'); }
+                    if(filter.currentFilters.ages['15-18']) { filtersArr.push('15-18'); }
+                    if(filter.currentFilters.ages['18+']) { filtersArr.push('18+'); }
+                }
+                if(filter.currentFilters.competitive) { filtersArr.push('competitive'); }
+                if(filter.currentFilters.voice_calls) { filtersArr.push('voice_calls'); }
+                if(filter.currentFilters.world_part) { filtersArr.push('world_part:' + filter.currentFilters.world_part); }
+                if(filter.currentFilters.languages) { filtersArr.push('languages:' + filter.currentFilters.languages); }
+                filtersStr = '?' + filtersArr.join('|');
+                window.history.pushState({}, '', window.location.pathname + (filtersStr == '?' ? '' : filtersStr));
+            },
+            controlsChangeListener: function(e) {
+                if(e.target.classList.contains('checkbox')) {
+                    // checkbox logic
+                    if(e.target.id == '13-15' || e.target.id == '15-18' || e.target.id == '18+') {
+                        filter.currentFilters.ages[e.target.id] = e.target.checked;
+                        filter.currentFilters.ages.enabled = !(filter.currentFilters.ages['13-15'] && filter.currentFilters.ages['15-18'] && filter.currentFilters.ages['18+']);
+                    }
+
+                    if(e.target.id == 'competitive') {
+                        filter.currentFilters.competitive = e.target.checked;
+                    }
+
+                    if(e.target.id == 'voice-calls-filter') {
+                        filter.currentFilters.voice_calls = e.target.checked;
+                    }
+
+                    if(e.target.classList.contains('class-checkbox')) {
+                        filter.currentFilters.classes[e.target.id] = e.target.checked;
+                        filter.currentFilters.classes.enabled = (filter.currentFilters.classes.scout ||
+                            filter.currentFilters.classes.soldier ||
+                            filter.currentFilters.classes.pyro ||
+                            filter.currentFilters.classes.demoman ||
+                            filter.currentFilters.classes.heavy ||
+                            filter.currentFilters.classes.engineer ||
+                            filter.currentFilters.classes.medic ||
+                            filter.currentFilters.classes.sniper ||
+                            filter.currentFilters.classes.spy)
+                    }
+
+                } else {
+                    // input logic
+                    if(e.target.id == 'world-part') {
+                        if(e.target.value == 'any') {
+                            filter.currentFilters.world_part = '';
+                        } else {
+                            filter.currentFilters.world_part = e.target.value;
+                        }
+                    }
+                    if(e.target.id == 'languages-filter') {
+                        filter.currentFilters.languages = e.target.value;
+                    }
+
+                }
+                filter.putFiltersToURL();
+                filter.rerenderStuff();
+            }
+        }
+
+        filter.controls.worldPart.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.languages.addEventListener('input', filter.controlsChangeListener);
+        filter.controls.age['13-15'].addEventListener('change', filter.controlsChangeListener);
+        filter.controls.age['15-18'].addEventListener('change', filter.controlsChangeListener);
+        filter.controls.age['18+'].addEventListener('change', filter.controlsChangeListener);
+        filter.controls.competitive.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.voice.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.scout.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.soldier.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.pyro.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.demoman.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.heavy.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.engineer.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.medic.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.sniper.addEventListener('change', filter.controlsChangeListener);
+        filter.controls.classes.spy.addEventListener('change', filter.controlsChangeListener);
+
+        document.querySelector('#filters-nothing-found > a').addEventListener('click', filter.resetFilters);
     </script>
 {% endblock %}

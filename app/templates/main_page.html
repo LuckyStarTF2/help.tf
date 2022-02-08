@@ -49,6 +49,14 @@
         background-image: url({{ url_for('static', filename='img/trickstabbing.png') }});
         background-position: right;
       }
+      #engineering-card {
+        background-image: url(https://cdn.discordapp.com/attachments/872234603442749560/936383598741819473/unknown.png);
+        background-position: right;
+      }
+      #competitive-card {
+        background-image: url(https://cdn.discordapp.com/attachments/872234603442749560/936971103132348476/unknown.png);
+        background-position: right;
+      }
       .card::before { 
         content:"";
         position:absolute; top:0;right:0;bottom:0;left:0;
@@ -205,7 +213,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="engineering-card">
                     <a href="{{ url_for('mentors') }}">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Engineering</h3></div>
@@ -239,7 +247,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="competitive-card">
                     <a href="{{ url_for('mentors') }}">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Competitive</h3></div>
