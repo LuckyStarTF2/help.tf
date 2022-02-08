@@ -133,7 +133,7 @@
                 Filters...
               </button>
             </p>
-            <div class="collapse show" id="collapsible-filters">
+            <div class="collapse" id="collapsible-filters">
               <div class="card card-body">
                 <div class="row">
 
@@ -856,6 +856,7 @@
     <script type="text/javascript">
         var filter = {
             controls: {
+                filtersBtn: document.getElementById('collapsible-filters'),
                 worldPart: document.getElementById('world-part'),
                 languages: document.getElementById('languages-filter'),
                 age: {
@@ -1054,6 +1055,9 @@
                     filter.controls.classes.medic.checked = false;
                     filter.controls.classes.sniper.checked = false;
                     filter.controls.classes.spy.checked = false;
+                }
+                if(JSON.stringify(this.currentFilters) !== JSON.stringify(this.defaultFilters)) {
+                    this.controls.filtersBtn.classList.add('show');
                 }
             },
             getFiltersFromURL: function(){

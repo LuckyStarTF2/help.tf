@@ -136,14 +136,6 @@
               <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
             </symbol>
           </svg>
-
-          <!-- div class="alert alert-danger d-flex align-items-center alert-development d-none d-lg-flex" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-            <div>
-              Alert! This project is under development now and hasn't been released yet. Many sufficient parts are missing! Btw you can <a href="{{ url_for('contact') }}">help</a> ;)
-            </div>
-          </div>
-        </div -->
           
         <div class="container-fluid pt-4 pb-5 py-lg-5 px-3">
           <div class="row align-items-center py-3">
@@ -163,21 +155,6 @@
                   <div class="col-6 text-center">
                     <a href="{{ url_for('mentors') }}" class="btn btn-lg btn-primary ask-assistance-cta">Ask for assistance</a>
                   </div>
-                  <!-- div class="col-sm-4 mb-4 mb-sm-0">
-                    <!- Number of mentors --
-                    <div class="h1 text-light mb-1">14</div>
-                    <div class="h5 text-light fw-normal opacity-70 mb-2">Active mentors</div>
-                  </div>
-                  <div class="col-sm-4 mb-4 mb-sm-0">
-                    <!- number of students --
-                    <div class="h1 text-light mb-1">130</div>
-                    <div class="h5 text-light fw-normal opacity-70 mb-1">Happy new gamers</div>
-                  </div>
-                  <div class="col-sm-4">
-                    <!- I dunno. Suggest something if you're reading this --
-                    <div class="h1 text-light mb-1">42</div>
-                    <div class="h5 text-light fw-normal opacity-70 mb-1">The Answer</div>
-                  </div -->
                 </div>
               </div>
             </div>
@@ -206,7 +183,7 @@
             <div class="col-lg-6 mb-4">
               <div class="row g-4">
                 <div class="col-12">
-                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m"><a href="{{ url_for('mentors', area='jumping') }}">
+                  <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m"><a href="{{ url_for('mentors') }}?soldier|demoman">
                     <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                       <div class="w-100 mt-auto"><h3>Rocket or sticky jumping</h3></div>
                     </div></a>
@@ -214,7 +191,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="engineering-card">
-                    <a href="{{ url_for('mentors') }}">
+                    <a href="{{ url_for('mentors') }}?engineer">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Engineering</h3></div>
                       </div>
@@ -223,7 +200,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="airblasting-card">
-                    <a href="{{ url_for('mentors') }}">
+                    <a href="{{ url_for('mentors') }}?pyro">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Airblasting</h3></div>
                       </div>
@@ -239,7 +216,7 @@
               <div class="row g-4">
                 <div class="col-md-6">
                   <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="trickstabbing-card">
-                    <a href="{{ url_for('mentors') }}">
+                    <a href="{{ url_for('mentors') }}?spy">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Trickstabbing</h3></div>
                       </div>
@@ -248,7 +225,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m" id="competitive-card">
-                    <a href="{{ url_for('mentors') }}">
+                    <a href="{{ url_for('mentors') }}?competitive">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Competitive</h3></div>
                       </div>
@@ -261,7 +238,7 @@
               <div class="row g-4">
                 <div class="col-12">
                   <div class="card card-overlay-bottom card-grid-sm card-bg-scale card-m">
-                    <a href="{{ url_for('mentors') }}">
+                    <a href="{{ url_for('mentors') }}?trading">
                       <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                         <div class="w-100 mt-auto"><h3>Trading</h3></div>
                       </div>
